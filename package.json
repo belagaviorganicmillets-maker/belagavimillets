@@ -1,0 +1,9 @@
+{
+  "name": "belagavi-organic-millets",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local ordering website for Belagavi Organic Millets — plain HTML/CSS/JS, WhatsApp-based checkout, no build step required.",
+  "scripts": {
+    "start": "python3 -m http.server 8000"
+  }
+}

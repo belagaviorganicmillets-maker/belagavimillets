@@ -1,0 +1,2324 @@
+:root{
+  --forest-deep: #16261C;
+  --forest: #1F3E2E;
+  --forest-soft: #2C4A38;
+  --husk: #EDE3C6;
+  --husk-light: #F6F0DC;
+  --gold: #C99A2E;
+  --gold-bright: #E0B646;
+  --rust: #9C4A2E;
+  --sage: #7C8B5D;
+  --ink: #1C2418;
+  --ink-soft: #4A5142;
+  --line: rgba(28,36,24,0.14);
+  --line-light: rgba(246,240,220,0.22);
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+@media (prefers-reduced-motion: reduce){
+  html{
+    scroll-behavior:auto;
+  }
+
+  *{
+    animation-duration:0.01ms !important;
+    transition-duration:0.01ms !important;
+  }
+}
+
+body{
+  margin:0;
+  background:var(--husk-light);
+  color:var(--ink);
+  font-family:'Work Sans',sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+
+h1,h2,h3{
+  font-family:'Fraunces',serif;
+  margin:0;
+  color:inherit;
+  font-weight:600;
+  letter-spacing:-0.01em;
+}
+
+.mono{
+  font-family:'JetBrains Mono',monospace;
+  letter-spacing:0.02em;
+}
+
+.eyebrow{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.72rem;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  color:var(--gold-bright);
+  display:flex;
+  align-items:center;
+  gap:0.6em;
+  margin-bottom:1.1em;
+}
+
+.eyebrow::before{
+  content:"";
+  width:22px;
+  height:1px;
+  background:currentColor;
+  display:inline-block;
+}
+
+.eyebrow.dark{
+  color:var(--rust);
+}
+
+a{
+  color:inherit;
+}
+
+.wrap{
+  max-width:1180px;
+  margin:0 auto;
+  padding:0 clamp(20px,5vw,56px);
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+header.site{
+  position:sticky;
+  top:0;
+  z-index:40;
+  background:rgba(22,38,28,0.92);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line-light);
+}
+
+.header-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px clamp(20px,5vw,56px);
+  max-width:1180px;
+  margin:0 auto;
+}
+
+.wordmark{
+  display:flex;
+  flex-direction:column;
+  line-height:1;
+  color:var(--husk-light);
+}
+
+.wordmark .kn{
+  font-size:0.62rem;
+  letter-spacing:0.1em;
+  color:var(--gold);
+  font-family:'JetBrains Mono',monospace;
+  margin-bottom:4px;
+}
+
+.wordmark .en{
+  font-family:'Fraunces',serif;
+  font-weight:600;
+  font-size:1.15rem;
+}
+
+.header-cta{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.78rem;
+  color:var(--forest-deep);
+  background:var(--gold-bright);
+  padding:9px 16px;
+  border-radius:100px;
+  text-decoration:none;
+  white-space:nowrap;
+  transition:transform 0.18s ease,background 0.18s ease;
+}
+
+.header-cta:hover{
+  background:#EFC868;
+  transform:translateY(-1px);
+}
+
+.header-cta:focus-visible{
+  outline:2px solid var(--husk-light);
+  outline-offset:3px;
+}
+
+.header-right{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.cart-btn{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:transparent;
+  border:1px solid var(--line-light);
+  color:var(--husk-light);
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.78rem;
+  padding:9px 14px 9px 12px;
+  border-radius:100px;
+  cursor:pointer;
+  transition:border-color 0.18s ease,background 0.18s ease;
+}
+
+.cart-btn:hover{
+  border-color:var(--gold-bright);
+  background:rgba(246,240,220,0.06);
+}
+
+.cart-btn:focus-visible{
+  outline:2px solid var(--gold-bright);
+  outline-offset:3px;
+}
+
+.cart-btn svg{
+  width:16px;
+  height:16px;
+}
+
+.cart-count{
+  background:var(--gold-bright);
+  color:var(--forest-deep);
+  font-size:0.68rem;
+  font-weight:600;
+  min-width:18px;
+  height:18px;
+  border-radius:50%;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:0 4px;
+}
+
+
+/* =========================================================
+   KNOW YOUR FIVE MILLETS
+   ========================================================= */
+
+.millet-info{
+  background:var(--husk-light);
+}
+
+.minfo-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:clamp(14px,2vw,22px);
+}
+
+.minfo-card{
+  background:var(--husk);
+  border:1px solid var(--line);
+  border-top:4px solid var(--theme-primary,var(--gold));
+  border-radius:18px;
+  overflow:hidden;
+}
+
+.minfo-image{
+  width:100%;
+  aspect-ratio:4/3;
+  background:var(--theme-bg,var(--husk));
+}
+
+.minfo-image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.minfo-body{
+  padding:18px 20px 22px;
+}
+
+.minfo-body h3{
+  font-size:1.08rem;
+  margin-bottom:2px;
+}
+
+.minfo-body .kn-name{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.72rem;
+  color:var(--theme-primary,var(--forest));
+  margin-bottom:10px;
+}
+
+.minfo-intro{
+  font-size:0.85rem;
+  line-height:1.55;
+  color:var(--ink-soft);
+  margin:0 0 12px;
+}
+
+.minfo-body .pcard-benefits li::before{
+  color:var(--theme-primary,var(--forest));
+}
+
+
+/* =========================================================
+   COMING SOON
+   ========================================================= */
+
+.coming-soon-banner{
+  background:var(--forest);
+  color:var(--husk-light);
+  border-radius:20px;
+  padding:clamp(20px,3vw,30px);
+  text-align:center;
+  margin-bottom:clamp(24px,3vw,36px);
+}
+
+.coming-soon-pill{
+  display:inline-block;
+  background:var(--gold-bright);
+  color:var(--forest-deep);
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.68rem;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  padding:5px 14px;
+  border-radius:100px;
+  margin-bottom:12px;
+}
+
+.coming-soon-banner h3{
+  font-size:clamp(1.3rem,2.4vw,1.7rem);
+  margin-bottom:6px;
+  color:var(--husk-light);
+}
+
+.coming-soon-banner p{
+  margin:0;
+  color:var(--husk);
+  font-size:0.92rem;
+}
+
+.product-badge.coming-soon-badge{
+  background:var(--gold-bright);
+  color:var(--forest-deep);
+}
+
+.pcard-unavailable .pcard-image{
+  opacity:0.85;
+}
+
+
+/* =========================================================
+   MILLET POWDERS
+   ========================================================= */
+
+.powders{
+  background:var(--husk-light);
+}
+
+.product-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:clamp(14px,2vw,24px);
+}
+
+.pcard{
+  background:var(--husk);
+  border:1px solid var(--line);
+  border-top:4px solid var(--theme-primary,var(--gold));
+  border-radius:18px;
+  padding:0 0 22px;
+  display:flex;
+  flex-direction:column;
+  position:relative;
+  overflow:hidden;
+  transition:transform 0.2s ease,box-shadow 0.2s ease;
+}
+
+.pcard:hover{
+  transform:translateY(-3px);
+  box-shadow:0 14px 28px rgba(31,25,15,0.1);
+}
+
+.pcard.sold-out{
+  opacity:0.6;
+}
+
+.pcard-combo{
+  border-top-color:var(--gold);
+  box-shadow:0 0 0 1px var(--gold) inset;
+}
+
+.product-badge{
+  position:absolute;
+  top:12px;
+  left:14px;
+  z-index:2;
+  background:var(--rust);
+  color:var(--husk-light);
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.62rem;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  padding:5px 10px;
+  border-radius:100px;
+}
+
+.product-badge.sold-out-badge{
+  background:var(--ink-soft);
+}
+
+.product-badge.combo-badge{
+  background:var(--gold);
+  color:var(--forest-deep);
+}
+
+.pcard-image{
+  width:100%;
+  aspect-ratio:1/1;
+  background:var(--theme-bg,var(--husk));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+.pcard-image img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+}
+
+.pcard-body{
+  padding:18px 20px 0;
+  display:flex;
+  flex-direction:column;
+  flex-grow:1;
+}
+
+.pcard-kicker{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.68rem;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  color:var(--theme-primary,var(--forest));
+  margin-bottom:4px;
+}
+
+.pcard h3{
+  font-size:1.1rem;
+  margin-bottom:8px;
+  line-height:1.25;
+}
+
+.pcard-desc{
+  font-size:0.85rem;
+  line-height:1.55;
+  color:var(--ink-soft);
+  margin-bottom:12px;
+}
+
+.pcard-benefits{
+  list-style:none;
+  margin:0 0 14px;
+  padding:0;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.pcard-benefits li{
+  font-size:0.82rem;
+  color:var(--ink);
+  line-height:1.4;
+  padding-left:18px;
+  position:relative;
+}
+
+.pcard-benefits li::before{
+  content:"✓";
+  position:absolute;
+  left:0;
+  top:0;
+  color:var(--theme-primary,var(--forest));
+  font-weight:700;
+  font-size:0.78rem;
+}
+
+.combo-contents{
+  list-style:none;
+  margin:0 0 14px;
+  border:1px dashed var(--line);
+  border-radius:10px;
+  padding:10px 12px;
+}
+
+.combo-contents li{
+  display:flex;
+  justify-content:space-between;
+  font-size:0.8rem;
+  padding:4px 0;
+  border-bottom:1px solid var(--line);
+}
+
+.combo-contents li:last-child{
+  border-bottom:none;
+}
+
+.combo-contents li span{
+  color:var(--ink-soft);
+  font-family:'JetBrains Mono',monospace;
+}
+
+.pcard-price-row{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  margin-bottom:14px;
+  margin-top:auto;
+}
+
+.pcard-price{
+  font-family:'JetBrains Mono',monospace;
+  font-size:1.22rem;
+  font-weight:500;
+  color:var(--forest);
+}
+
+.pcard-price span{
+  font-size:0.68rem;
+  color:var(--ink-soft);
+  font-weight:400;
+}
+
+.pcard-shelf{
+  font-size:0.68rem;
+  color:var(--ink-soft);
+  font-family:'JetBrains Mono',monospace;
+}
+
+.product-actions{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:0 20px;
+}
+
+.qty-stepper{
+  display:flex;
+  align-items:center;
+  border:1px solid var(--line);
+  border-radius:100px;
+  overflow:hidden;
+  flex-shrink:0;
+}
+
+.qty-stepper button{
+  width:32px;
+  height:36px;
+  border:none;
+  background:transparent;
+  font-family:'JetBrains Mono',monospace;
+  font-size:1rem;
+  color:var(--forest);
+  cursor:pointer;
+}
+
+.qty-stepper button:hover{
+  background:rgba(31,62,46,0.08);
+}
+
+.qty-stepper button:focus-visible{
+  outline:2px solid var(--forest);
+  outline-offset:-2px;
+}
+
+.qty-val{
+  min-width:26px;
+  text-align:center;
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.86rem;
+}
+
+.add-btn{
+  flex-grow:1;
+  background:var(--forest);
+  color:var(--husk-light);
+  border:none;
+  border-radius:100px;
+  padding:10px 14px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.78rem;
+  cursor:pointer;
+  transition:background 0.18s ease,transform 0.18s ease;
+}
+
+.add-btn:hover{
+  background:var(--forest-soft);
+  transform:translateY(-1px);
+}
+
+.add-btn:focus-visible{
+  outline:2px solid var(--forest);
+  outline-offset:2px;
+}
+
+.add-btn.added{
+  background:var(--gold);
+  color:var(--forest-deep);
+}
+
+.add-btn:disabled{
+  background:var(--ink-soft);
+  cursor:not-allowed;
+  transform:none;
+}
+
+
+/* =========================================================
+   CART DRAWER
+   IMPORTANT FIXES:
+   - Drawer itself never scrolls
+   - Cart body scrolls
+   - Footer can scroll independently
+   - CTA cannot disappear below viewport
+   ========================================================= */
+
+.cart-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(22,38,28,0.55);
+  z-index:60;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 0.25s ease;
+}
+
+.cart-overlay.open{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.cart-drawer{
+  position:fixed;
+  top:0;
+  right:0;
+  bottom:0;
+
+  width:min(420px,100vw);
+
+  background:var(--husk-light);
+
+  z-index:61;
+
+  transform:translateX(100%);
+  transition:transform 0.32s cubic-bezier(0.22,1,0.36,1);
+
+  display:flex;
+  flex-direction:column;
+
+  /*
+   * Critical:
+   * Prevent the entire drawer from becoming an oversized page.
+   */
+  overflow:hidden;
+
+  box-shadow:-16px 0 40px rgba(0,0,0,0.25);
+
+  min-height:0;
+}
+
+.cart-drawer.open{
+  transform:translateX(0);
+}
+
+
+/* ---------- Cart header ---------- */
+
+.cart-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  flex:0 0 auto;
+
+  padding:20px 22px;
+
+  border-bottom:1px solid var(--line);
+
+  background:var(--forest);
+  color:var(--husk-light);
+}
+
+.cart-header h3{
+  font-size:1.1rem;
+}
+
+.cart-close{
+  background:none;
+  border:none;
+  color:var(--husk-light);
+  font-size:1.4rem;
+  line-height:1;
+  cursor:pointer;
+  padding:4px;
+}
+
+.cart-close:focus-visible{
+  outline:2px solid var(--gold-bright);
+}
+
+
+/* ---------- Cart body ---------- */
+
+.cart-body{
+  flex:1 1 auto;
+
+  /*
+   * Critical flexbox fix.
+   * Without min-height:0, this section can force
+   * the footer below the viewport.
+   */
+  min-height:0;
+
+  overflow-y:auto;
+  overflow-x:hidden;
+
+  padding:18px 22px;
+
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;
+}
+
+.cart-body::-webkit-scrollbar{
+  width:6px;
+}
+
+.cart-body::-webkit-scrollbar-track{
+  background:transparent;
+}
+
+.cart-body::-webkit-scrollbar-thumb{
+  background:rgba(31,62,46,0.25);
+  border-radius:20px;
+}
+
+.cart-empty{
+  color:var(--ink-soft);
+  font-size:0.92rem;
+  text-align:center;
+  padding:40px 10px;
+  line-height:1.6;
+}
+
+.cart-item{
+  display:flex;
+  gap:12px;
+  padding:14px 0;
+  border-bottom:1px solid var(--line);
+}
+
+.cart-item-info{
+  flex-grow:1;
+  min-width:0;
+}
+
+.cart-item-info h4{
+  font-size:0.94rem;
+  margin:0 0 2px;
+  font-family:'Fraunces',serif;
+  font-weight:600;
+}
+
+.cart-item-info .sub{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.7rem;
+  color:var(--ink-soft);
+  margin-bottom:8px;
+}
+
+.cart-item-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+}
+
+.cart-item-price{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.86rem;
+}
+
+.remove-btn{
+  background:none;
+  border:none;
+  color:var(--rust);
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.7rem;
+  cursor:pointer;
+  text-decoration:underline;
+  padding:0;
+}
+
+
+/* =========================================================
+   CART FOOTER
+   ========================================================= */
+
+.cart-footer{
+  /*
+   * Footer is always part of drawer layout.
+   * It won't push outside viewport.
+   */
+  flex:0 1 auto;
+
+  min-height:0;
+
+  border-top:1px solid var(--line);
+
+  padding:18px 22px 22px;
+
+  background:var(--husk);
+
+  /*
+   * If the checkout form is taller than available space,
+   * the footer itself scrolls.
+   */
+  overflow-y:auto;
+  overflow-x:hidden;
+
+  max-height:65vh;
+
+  -webkit-overflow-scrolling:touch;
+
+  overscroll-behavior:contain;
+}
+
+.cart-footer::-webkit-scrollbar{
+  width:6px;
+}
+
+.cart-footer::-webkit-scrollbar-track{
+  background:transparent;
+}
+
+.cart-footer::-webkit-scrollbar-thumb{
+  background:rgba(31,62,46,0.25);
+  border-radius:20px;
+}
+
+
+/* ---------- Cart totals ---------- */
+
+.cart-subtotal{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  font-family:'JetBrains Mono',monospace;
+  margin-bottom:14px;
+}
+
+.cart-subtotal .amt{
+  font-size:1.3rem;
+  font-weight:500;
+  color:var(--forest);
+}
+
+.cart-charge-row{
+  display:flex;
+  justify-content:space-between;
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.82rem;
+  color:var(--ink-soft);
+  padding:3px 0;
+}
+
+.cart-charge-row.cart-grand-total{
+  color:var(--forest);
+  font-size:1rem;
+  font-weight:600;
+  border-top:1px dashed var(--line);
+  margin-top:4px;
+  padding-top:8px;
+}
+
+#cartCharges{
+  margin-bottom:14px;
+}
+
+
+/* ---------- Fresh order note ---------- */
+
+.fresh-note{
+  font-size:0.76rem;
+  line-height:1.5;
+  color:var(--forest);
+  background:rgba(31,62,46,0.07);
+  border:1px solid rgba(31,62,46,0.14);
+  border-radius:10px;
+  padding:9px 12px;
+  margin-bottom:14px;
+}
+
+
+/* ---------- Delivery area ---------- */
+
+.delivery-note{
+  font-size:0.72rem;
+  line-height:1.5;
+  color:var(--ink-soft);
+  margin:4px 0 0;
+}
+
+.delivery-area-note{
+  font-size:0.78rem;
+  color:var(--gold-bright);
+  display:flex;
+  align-items:flex-start;
+  gap:6px;
+  line-height:1.5;
+  margin-top:10px;
+}
+
+.delivery-area-note svg{
+  width:14px;
+  height:14px;
+  flex-shrink:0;
+  margin-top:2px;
+}
+
+
+/* =========================================================
+   CHECKOUT FORM
+   ========================================================= */
+
+.checkout-fields{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin-bottom:14px;
+}
+
+.checkout-fields input,
+.checkout-fields textarea{
+  font-family:'Work Sans',sans-serif;
+  font-size:0.88rem;
+
+  padding:12px 13px;
+
+  border-radius:10px;
+  border:1px solid var(--line);
+
+  background:var(--husk-light);
+  color:var(--ink);
+
+  resize:vertical;
+
+  width:100%;
+}
+
+.checkout-fields textarea{
+  min-height:82px;
+}
+
+.checkout-fields input:focus-visible,
+.checkout-fields textarea:focus-visible{
+  outline:2px solid var(--forest);
+  outline-offset:1px;
+}
+
+.checkout-fields label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.66rem;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+  margin-bottom:-4px;
+}
+
+.field-error{
+  font-size:0.72rem;
+  color:var(--rust);
+  font-family:'JetBrains Mono',monospace;
+  margin-top:-6px;
+}
+
+
+/* =========================================================
+   PAYMENT SECTION
+   ========================================================= */
+
+.payment-section{
+  background:rgba(31,62,46,0.06);
+  border:1px solid rgba(31,62,46,0.16);
+  border-radius:14px;
+  padding:14px;
+  margin:14px 0;
+}
+
+.payment-section h4{
+  margin:0 0 6px;
+  font-family:'Fraunces',serif;
+  font-size:1rem;
+  color:var(--forest);
+}
+
+.payment-section p{
+  margin:0 0 12px;
+  font-size:0.78rem;
+  line-height:1.5;
+  color:var(--ink-soft);
+}
+
+
+/* UPI ID */
+
+.upi-id-box{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+
+  background:var(--husk-light);
+
+  border:1px dashed var(--line);
+
+  border-radius:10px;
+
+  padding:10px 12px;
+
+  margin-bottom:10px;
+}
+
+.upi-id{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.8rem;
+  color:var(--forest);
+  font-weight:600;
+  word-break:break-all;
+}
+
+.copy-upi-btn{
+  flex-shrink:0;
+
+  border:1px solid var(--line);
+
+  background:var(--husk);
+
+  color:var(--forest);
+
+  border-radius:100px;
+
+  padding:6px 10px;
+
+  font-family:'JetBrains Mono',monospace;
+
+  font-size:0.65rem;
+
+  cursor:pointer;
+}
+
+.copy-upi-btn:hover{
+  background:var(--gold-bright);
+}
+
+
+/* QR code */
+
+.upi-qr{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  padding:10px;
+}
+
+.upi-qr img{
+  width:min(190px,100%);
+  height:auto;
+
+  display:block;
+
+  border-radius:10px;
+
+  background:#fff;
+
+  padding:8px;
+}
+
+
+/* Payment completed confirmation */
+
+.payment-confirmation{
+  display:flex;
+  align-items:flex-start;
+  gap:9px;
+
+  background:rgba(201,154,46,0.12);
+
+  border:1px solid rgba(201,154,46,0.35);
+
+  border-radius:10px;
+
+  padding:10px 12px;
+
+  margin-top:10px;
+
+  font-size:0.76rem;
+
+  line-height:1.5;
+
+  color:var(--ink);
+}
+
+.payment-confirmation input{
+  width:16px !important;
+  height:16px;
+
+  flex-shrink:0;
+
+  accent-color:var(--forest);
+}
+
+
+/* =========================================================
+   IMPORTANT:
+   PAYMENT MUST BE COMPLETED BEFORE ORDER SUBMISSION
+   ========================================================= */
+
+.checkout-btn{
+  width:100%;
+
+  background:var(--gold-bright);
+  color:var(--forest-deep);
+
+  border:none;
+
+  border-radius:100px;
+
+  padding:13px;
+
+  font-family:'JetBrains Mono',monospace;
+
+  font-size:0.85rem;
+
+  cursor:pointer;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  gap:8px;
+
+  transition:transform 0.18s ease,background 0.18s ease;
+
+  /*
+   * Keeps CTA visible when user scrolls through
+   * a long checkout form.
+   */
+  position:sticky;
+  bottom:0;
+
+  z-index:3;
+
+  box-shadow:0 -8px 16px rgba(237,227,198,0.9);
+}
+
+.checkout-btn:hover{
+  background:#EFC868;
+  transform:translateY(-1px);
+}
+
+.checkout-btn:focus-visible{
+  outline:2px solid var(--forest);
+  outline-offset:2px;
+}
+
+.checkout-btn:disabled{
+  background:var(--ink-soft);
+  color:var(--husk-light);
+  cursor:not-allowed;
+  transform:none;
+  opacity:0.65;
+}
+
+.checkout-note{
+  font-size:0.72rem;
+  color:var(--ink-soft);
+  margin-top:10px;
+  line-height:1.5;
+  text-align:center;
+}
+
+
+/* =========================================================
+   REMOVE OLD COD / STALL PICKUP VISUALS IF PRESENT
+   ========================================================= */
+
+/*
+ * These rules intentionally hide obsolete UI elements
+ * if the old HTML still contains them.
+ *
+ * Actual removal should also be done from HTML/JS.
+ */
+
+.stall-pickup,
+.stall-pickup-option,
+.pickup-option,
+[data-order-type="pickup"],
+.cod-option,
+.cod-payment,
+[data-payment-method="cod"]{
+  display:none !important;
+}
+
+
+/* Make delivery the only visible order method */
+
+.delivery-option,
+.delivery-method{
+  width:100%;
+}
+
+
+/* =========================================================
+   ORDER CONFIRMATION
+   ========================================================= */
+
+.order-confirm{
+  text-align:center;
+  padding:8px 4px 4px;
+}
+
+.order-confirm-icon{
+  width:40px;
+  height:40px;
+
+  margin:0 auto 12px;
+
+  border-radius:50%;
+
+  background:var(--forest);
+  color:var(--husk-light);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:1.1rem;
+}
+
+.order-confirm h4{
+  font-family:'Fraunces',serif;
+  font-size:1.05rem;
+  margin-bottom:8px;
+}
+
+.order-confirm p{
+  font-size:0.84rem;
+  line-height:1.55;
+  color:var(--ink-soft);
+  margin:0 0 16px;
+}
+
+.order-confirm-id{
+  font-family:'JetBrains Mono',monospace;
+  color:var(--forest) !important;
+}
+
+.payment-notice{
+  font-size:0.78rem;
+  line-height:1.5;
+  color:var(--ink-soft);
+
+  background:rgba(31,62,46,0.05);
+
+  border:1px dashed var(--line);
+
+  border-radius:10px;
+
+  padding:10px 12px;
+
+  margin-bottom:14px;
+}
+
+.order-confirm-close{
+  background:none;
+  border:1px solid var(--line);
+  border-radius:100px;
+
+  padding:9px 18px;
+
+  font-family:'JetBrains Mono',monospace;
+
+  font-size:0.78rem;
+
+  color:var(--forest);
+
+  cursor:pointer;
+}
+
+.order-confirm-close:hover{
+  background:rgba(31,62,46,0.06);
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.hero{
+  position:relative;
+
+  background:
+    radial-gradient(
+      ellipse 900px 500px at 85% -10%,
+      rgba(201,154,46,0.18),
+      transparent 60%
+    ),
+    linear-gradient(
+      180deg,
+      var(--forest-deep) 0%,
+      var(--forest) 100%
+    );
+
+  color:var(--husk-light);
+
+  padding:
+    clamp(64px,10vw,120px)
+    0
+    clamp(56px,8vw,96px);
+
+  overflow:hidden;
+}
+
+.hero::after{
+  content:"";
+
+  position:absolute;
+  inset:0;
+
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.83 0 0 0 0 0.72 0 0 0 0 0.44 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+
+  pointer-events:none;
+
+  mix-blend-mode:overlay;
+}
+
+.hero-inner{
+  position:relative;
+  z-index:1;
+  max-width:720px;
+}
+
+.hero h1{
+  font-size:clamp(2.6rem,6.4vw,4.6rem);
+  line-height:0.98;
+  margin-bottom:0.3em;
+}
+
+.hero h1 em{
+  font-style:normal;
+  color:var(--gold-bright);
+}
+
+.hero .tagline{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.95rem;
+  color:var(--husk);
+  margin-bottom:1.6em;
+  letter-spacing:0.04em;
+}
+
+.hero p.lede{
+  font-size:1.08rem;
+  line-height:1.65;
+  color:var(--husk);
+  max-width:52ch;
+  margin-bottom:2.2em;
+}
+
+.hero-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+
+  padding:13px 24px;
+
+  border-radius:100px;
+
+  font-family:'JetBrains Mono',monospace;
+
+  font-size:0.82rem;
+
+  letter-spacing:0.02em;
+
+  text-decoration:none;
+
+  transition:transform 0.18s ease,box-shadow 0.18s ease;
+
+  border:1px solid transparent;
+}
+
+.btn:focus-visible{
+  outline:2px solid var(--gold-bright);
+  outline-offset:3px;
+}
+
+.btn-primary{
+  background:var(--gold-bright);
+  color:var(--forest-deep);
+}
+
+.btn-primary:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 24px rgba(201,154,46,0.35);
+}
+
+.btn-ghost{
+  border-color:var(--line-light);
+  color:var(--husk-light);
+}
+
+.btn-ghost:hover{
+  background:rgba(246,240,220,0.08);
+  transform:translateY(-2px);
+}
+
+.btn-seal{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+
+  margin-top:2.4em;
+
+  font-family:'JetBrains Mono',monospace;
+
+  font-size:0.72rem;
+
+  color:var(--sage);
+}
+
+.seal-dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+
+  background:var(--gold-bright);
+
+  box-shadow:0 0 0 3px rgba(224,182,70,0.2);
+}
+
+
+/* =========================================================
+   SECTION SHELLS
+   ========================================================= */
+
+section{
+  padding:clamp(56px,8vw,96px) 0;
+}
+
+.section-head{
+  max-width:640px;
+  margin-bottom:clamp(32px,5vw,56px);
+}
+
+.section-head h2{
+  font-size:clamp(1.8rem,3.4vw,2.6rem);
+  line-height:1.1;
+}
+
+.section-head p{
+  color:var(--ink-soft);
+  font-size:1.02rem;
+  line-height:1.6;
+  margin-top:0.8em;
+}
+
+.reveal{
+  opacity:0;
+  transform:translateY(18px);
+  transition:opacity 0.7s ease,transform 0.7s ease;
+}
+
+.reveal.in{
+  opacity:1;
+  transform:translateY(0);
+}
+
+
+/* =========================================================
+   BENEFITS
+   ========================================================= */
+
+.benefits{
+  background:var(--husk-light);
+}
+
+.benefit-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:1px;
+
+  background:var(--line);
+
+  border:1px solid var(--line);
+
+  border-radius:18px;
+
+  overflow:hidden;
+}
+
+.benefit-card{
+  background:var(--husk-light);
+
+  padding:
+    clamp(24px,3vw,34px)
+    clamp(18px,2.4vw,26px);
+
+  display:flex;
+  flex-direction:column;
+
+  gap:14px;
+}
+
+.benefit-icon{
+  width:42px;
+  height:42px;
+  color:var(--forest);
+}
+
+.benefit-card h3{
+  font-size:1.12rem;
+  font-weight:600;
+}
+
+.benefit-card p{
+  margin:0;
+  color:var(--ink-soft);
+  font-size:0.92rem;
+  line-height:1.55;
+}
+
+
+/* =========================================================
+   FRESH MILLET AMBALI
+   ========================================================= */
+
+.ambali{
+  background:var(--forest-deep);
+  color:var(--husk-light);
+  position:relative;
+}
+
+.ambali .section-head p{
+  color:var(--husk);
+}
+
+.ambali-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+
+  gap:clamp(14px,2vw,22px);
+
+  margin-bottom:clamp(24px,3vw,36px);
+}
+
+.ambali-card2{
+  background:var(--theme-bg,rgba(246,240,220,0.06));
+
+  border:1px solid var(--line-light);
+
+  border-radius:22px;
+
+  padding:0 0 22px;
+
+  display:flex;
+  flex-direction:column;
+
+  position:relative;
+
+  overflow:hidden;
+
+  transition:
+    border-color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.ambali-card2:hover,
+.ambali-card2:focus-within{
+  border-color:var(--theme-primary,var(--gold-bright));
+  transform:translateY(-3px);
+}
+
+.ambali-card2.sold-out{
+  opacity:0.6;
+}
+
+.ambali-visual2{
+  width:100%;
+  aspect-ratio:16/11;
+  position:relative;
+  overflow:hidden;
+}
+
+.ambali-visual2 > img:first-child{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.ambali-grain-thumb{
+  position:absolute;
+  bottom:10px;
+  right:10px;
+
+  width:64px;
+  height:64px;
+
+  border-radius:10px;
+
+  object-fit:cover;
+
+  border:2px solid var(--husk-light);
+
+  box-shadow:0 4px 10px rgba(0,0,0,0.25);
+}
+
+.ambali-body2{
+  display:flex;
+  flex-direction:column;
+
+  padding:16px 18px 0;
+
+  color:var(--ink);
+}
+
+.ambali-body2 h3{
+  font-size:1.05rem;
+  margin-bottom:2px;
+  color:var(--forest-deep);
+}
+
+.ambali-body2 .kn-name{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.72rem;
+  color:var(--theme-accent,var(--forest));
+  margin-bottom:10px;
+}
+
+.ambali-benefits2{
+  margin:0 0 12px;
+  font-size:0.82rem;
+  line-height:1.55;
+  color:var(--ink-soft);
+}
+
+.ambali-body2 .pcard-benefits li::before{
+  color:var(--theme-primary,var(--forest));
+}
+
+.ambali-body2 .pcard-benefits{
+  margin-bottom:14px;
+}
+
+.grain-tag{
+  display:inline-block;
+  align-self:flex-start;
+
+  font-family:'JetBrains Mono',monospace;
+
+  font-size:0.64rem;
+
+  letter-spacing:0.02em;
+
+  background:var(--theme-primary,var(--gold));
+
+  color:var(--husk-light);
+
+  padding:4px 10px;
+
+  border-radius:100px;
+
+  margin-bottom:10px;
+}
+
+.ambali-variants{
+  display:flex;
+  flex-direction:column;
+
+  gap:8px;
+
+  margin-bottom:14px;
+
+  border-top:1px solid rgba(0,0,0,0.08);
+
+  padding-top:12px;
+}
+
+.ambali-variant{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:10px;
+}
+
+.ambali-variant-label{
+  font-size:0.82rem;
+
+  display:flex;
+  flex-direction:column;
+
+  gap:1px;
+}
+
+.ambali-variant-label span{
+  font-family:'JetBrains Mono',monospace;
+
+  font-size:0.86rem;
+
+  color:var(--theme-accent,var(--forest));
+
+  font-weight:600;
+}
+
+.add-btn-ambali{
+  margin:0 18px;
+  width:calc(100% - 36px);
+}
+
+
+/* =========================================================
+   PROCESS STRIP
+   ========================================================= */
+
+.strip{
+  background:var(--gold);
+  color:var(--forest-deep);
+
+  padding:22px 0;
+
+  overflow:hidden;
+}
+
+.strip-track{
+  display:flex;
+
+  gap:2.4em;
+
+  white-space:nowrap;
+
+  font-family:'JetBrains Mono',monospace;
+
+  font-size:0.82rem;
+
+  letter-spacing:0.06em;
+
+  animation:scroll-strip 26s linear infinite;
+
+  width:max-content;
+}
+
+@media (prefers-reduced-motion:reduce){
+  .strip-track{
+    animation:none;
+  }
+}
+
+@keyframes scroll-strip{
+  from{
+    transform:translateX(0);
+  }
+
+  to{
+    transform:translateX(-50%);
+  }
+}
+
+.strip-track span::after{
+  content:"·";
+  margin-left:2.4em;
+  opacity:0.6;
+}
+
+
+/* =========================================================
+   AMBALI INFORMATION BAR
+   ========================================================= */
+
+.ambali-info-bar{
+  background:rgba(246,240,220,0.05);
+
+  border:1px solid var(--line-light);
+
+  border-radius:22px;
+
+  padding:clamp(20px,3vw,30px);
+
+  display:grid;
+
+  grid-template-columns:0.9fr 2fr 0.9fr;
+
+  gap:clamp(20px,3vw,32px);
+}
+
+.ambali-info-col h4{
+  font-size:1rem;
+  color:var(--husk-light);
+  margin-bottom:6px;
+
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.ambali-info-col p{
+  font-size:0.82rem;
+  color:var(--husk);
+  line-height:1.55;
+  margin:0 0 8px;
+}
+
+.ambali-info-col p strong{
+  color:var(--gold-bright);
+}
+
+.tagline-col{
+  display:flex;
+  flex-direction:column;
+
+  align-items:flex-end;
+  justify-content:center;
+
+  text-align:right;
+
+  font-family:'Fraunces',serif;
+
+  font-style:italic;
+
+  color:var(--gold-bright);
+
+  font-size:1.02rem;
+
+  line-height:1.4;
+}
+
+
+/* =========================================================
+   PREPARATION STEPS
+   ========================================================= */
+
+.prep-steps{
+  display:flex;
+
+  flex-wrap:wrap;
+
+  gap:14px;
+
+  justify-content:space-between;
+}
+
+.prep-step{
+  flex:1 1 90px;
+
+  min-width:90px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+
+  text-align:center;
+
+  gap:6px;
+}
+
+.prep-step-num{
+  width:30px;
+  height:30px;
+
+  border-radius:50%;
+
+  background:var(--gold);
+
+  color:var(--forest-deep);
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  font-family:'JetBrains Mono',monospace;
+
+  font-weight:700;
+
+  font-size:0.86rem;
+}
+
+.prep-step-title{
+  font-size:0.8rem;
+  font-weight:600;
+  color:var(--husk-light);
+}
+
+.prep-step-detail{
+  font-size:0.72rem;
+  color:var(--husk);
+  line-height:1.4;
+}
+
+
+/* =========================================================
+   ORDER / CONTACT
+   ========================================================= */
+
+.order{
+  background:var(--husk);
+}
+
+.order-panel{
+  background:var(--husk-light);
+
+  border:1px solid var(--line);
+
+  border-radius:26px;
+
+  padding:clamp(28px,4vw,52px);
+
+  display:grid;
+
+  grid-template-columns:1.1fr 1fr;
+
+  gap:clamp(28px,4vw,48px);
+
+  position:relative;
+}
+
+.order-panel::before{
+  content:"";
+
+  position:absolute;
+
+  left:0;
+
+  top:24px;
+
+  bottom:24px;
+
+  width:2px;
+
+  background:
+    repeating-linear-gradient(
+      180deg,
+      var(--line) 0 6px,
+      transparent 6px 12px
+    );
+
+  display:block;
+}
+
+.order-copy h2{
+  font-size:clamp(1.7rem,3vw,2.3rem);
+  margin-bottom:0.5em;
+}
+
+.order-copy p{
+  color:var(--ink-soft);
+  line-height:1.6;
+  max-width:44ch;
+}
+
+.order-list{
+  list-style:none;
+
+  padding:0;
+
+  margin:1.8em 0 0;
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:14px;
+}
+
+.order-list li{
+  display:flex;
+
+  align-items:center;
+
+  gap:12px;
+
+  font-family:'JetBrains Mono',monospace;
+
+  font-size:0.92rem;
+}
+
+.order-list a{
+  text-decoration:none;
+  border-bottom:1px solid var(--line);
+}
+
+.order-list a:hover{
+  color:var(--rust);
+  border-color:var(--rust);
+}
+
+.tag{
+  font-size:0.62rem;
+
+  text-transform:uppercase;
+
+  letter-spacing:0.1em;
+
+  background:var(--forest);
+
+  color:var(--husk-light);
+
+  padding:4px 9px;
+
+  border-radius:100px;
+
+  flex-shrink:0;
+}
+
+.order-form{
+  background:var(--forest);
+
+  border-radius:18px;
+
+  padding:clamp(24px,3vw,32px);
+
+  color:var(--husk-light);
+
+  display:flex;
+
+  flex-direction:column;
+
+  justify-content:space-between;
+}
+
+.order-form h3{
+  font-size:1.2rem;
+  margin-bottom:0.5em;
+}
+
+.order-form p{
+  color:var(--husk);
+
+  font-size:0.88rem;
+
+  line-height:1.6;
+
+  margin:0 0 1.6em;
+}
+
+.order-form .btn-primary{
+  width:100%;
+  justify-content:center;
+}
+
+.badge-row{
+  display:flex;
+
+  gap:10px;
+
+  margin-top:1.4em;
+
+  flex-wrap:wrap;
+}
+
+.badge{
+  display:flex;
+
+  align-items:center;
+
+  gap:6px;
+
+  font-family:'JetBrains Mono',monospace;
+
+  font-size:0.68rem;
+
+  color:var(--gold-bright);
+
+  border:1px solid var(--line-light);
+
+  padding:6px 10px;
+
+  border-radius:100px;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+footer{
+  background:var(--forest-deep);
+
+  color:var(--husk);
+
+  padding:36px 0;
+
+  border-top:1px solid var(--line-light);
+}
+
+.footer-inner{
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  flex-wrap:wrap;
+
+  gap:16px;
+
+  font-family:'JetBrains Mono',monospace;
+
+  font-size:0.76rem;
+}
+
+.footer-inner a{
+  text-decoration:none;
+
+  color:var(--husk);
+
+  border-bottom:1px solid transparent;
+}
+
+.footer-inner a:hover{
+  border-color:var(--gold-bright);
+  color:var(--gold-bright);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width:920px){
+
+  .minfo-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .benefit-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .ambali-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .product-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .order-panel{
+    grid-template-columns:1fr;
+  }
+
+  .order-panel::before{
+    display:none;
+  }
+
+  .ambali-info-bar{
+    grid-template-columns:1fr;
+    gap:22px;
+  }
+
+  .tagline-col{
+    align-items:flex-start;
+    text-align:left;
+  }
+
+  .prep-steps{
+    justify-content:flex-start;
+  }
+
+  /*
+   * Give the cart footer more room on tablet.
+   */
+  .cart-footer{
+    max-height:70vh;
+  }
+}
+
+
+@media (max-width:560px){
+
+  .minfo-grid{
+    grid-template-columns:1fr;
+  }
+
+  .benefit-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .ambali-grid{
+    grid-template-columns:1fr;
+  }
+
+  .product-grid{
+    grid-template-columns:1fr;
+  }
+
+  .hero-actions{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .footer-inner{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .prep-steps{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .prep-step{
+    flex-direction:row;
+    text-align:left;
+    width:100%;
+  }
+
+  /*
+   * Mobile cart:
+   * Header remains fixed,
+   * body scrolls,
+   * footer remains reachable.
+   */
+  .cart-drawer{
+    width:100vw;
+  }
+
+  .cart-header{
+    padding:16px 18px;
+  }
+
+  .cart-body{
+    padding:14px 18px;
+  }
+
+  .cart-footer{
+    padding:14px 18px 18px;
+
+    /*
+     * Never let footer consume the entire phone screen.
+     */
+    max-height:72vh;
+  }
+
+  .checkout-btn{
+    padding:14px;
+    font-size:0.82rem;
+  }
+
+  .upi-id-box{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .copy-upi-btn{
+    width:100%;
+  }
+}
+/* ============================================================
+   AMBALI INFO SECTION — LIGHT BACKGROUND TEXT FIX
+   ============================================================ */
+
+.ambali-info-section {
+  background: var(--husk-light);
+  color: var(--ink);
+}
+
+/* Main information card */
+.ambali-info-section .ambali-info-bar {
+  background: var(--husk);
+  border: 1px solid var(--line);
+  color: var(--ink);
+}
+
+/* Section headings */
+.ambali-info-section .ambali-info-col h4 {
+  color: var(--ink) !important;
+}
+
+/* Delivery / packing text */
+.ambali-info-section .ambali-info-col p {
+  color: var(--ink-soft) !important;
+}
+
+/* ₹30 and ₹10 */
+.ambali-info-section .ambali-info-col p strong {
+  color: var(--forest) !important;
+}
+
+/* Delivery area */
+.ambali-info-section .delivery-area-note {
+  color: var(--ink-soft) !important;
+}
+
+.ambali-info-section .delivery-area-text {
+  color: var(--ink-soft) !important;
+}
+
+/* Preparation step titles */
+.ambali-info-section .prep-step-title {
+  color: var(--ink) !important;
+}
+
+/* Preparation step descriptions */
+.ambali-info-section .prep-step-detail {
+  color: var(--ink-soft) !important;
+}
+
+/* Number circles */
+.ambali-info-section .prep-step-num {
+  background: var(--gold);
+  color: var(--forest-deep) !important;
+}
+
+/* Final tagline */
+.ambali-info-section .tagline-col {
+  color: var(--forest) !important;
+}
+
+/* Location icon */
+.ambali-info-section .delivery-area-note svg {
+  color: var(--forest);
+}
+
+/* Mobile */
+@media (max-width: 920px) {
+  .ambali-info-section .ambali-info-bar {
+    grid-template-columns: 1fr;
+  }
+
+  .ambali-info-section .tagline-col {
+    align-items: flex-start;
+    text-align: left;
+  }
+}
