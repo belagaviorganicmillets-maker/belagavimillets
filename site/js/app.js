@@ -250,7 +250,7 @@ function renderProducts() {
           );
 
           addBtn.textContent =
-            "Added âœ“";
+            "Added ✓";
 
           addBtn.classList.add(
             "added"
@@ -596,7 +596,7 @@ function renderAmbali() {
               );
 
             btn.textContent =
-              "Added âœ“";
+              "Added ✓";
 
             setTimeout(() => {
               btn.textContent =
