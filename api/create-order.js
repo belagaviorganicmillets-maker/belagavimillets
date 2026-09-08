@@ -136,11 +136,7 @@ module.exports = async function handler(req, res) {
       }
 
       // ------------------------------------------------------
-      // Ambali line
-      //
-      // Example IDs:
-      // foxtail-ambali-200ml
-      // barnyard-ambali-300ml
+      // Ambali 200ml
       // ------------------------------------------------------
       else if (
         item.id.endsWith("-ambali-200ml")
@@ -153,6 +149,9 @@ module.exports = async function handler(req, res) {
 
       }
 
+      // ------------------------------------------------------
+      // Ambali 300ml
+      // ------------------------------------------------------
       else if (
         item.id.endsWith("-ambali-300ml")
       ) {
@@ -180,23 +179,30 @@ module.exports = async function handler(req, res) {
     }
 
     // --------------------------------------------------------
-    // Fixed Ambali charges.
+    // DELIVERY LOGIC
     //
-    // Delivery = ₹30
-    // Packing  = ₹10
+    // Ambali subtotal BELOW ₹99  -> ₹30 delivery
+    // Ambali subtotal ₹99 OR ABOVE -> FREE delivery
     //
-    // These are charged once per order, not per item.
+    // Packing charge remains ₹10.
+    // Both charges apply only when the order contains Ambali.
     // --------------------------------------------------------
     const delivery =
-      hasAmbali
+      hasAmbali && subtotal < 99
         ? AMBALI_DELIVERY_CHARGE
         : 0;
 
+    // --------------------------------------------------------
+    // Packing charge remains ₹10 for every Ambali order.
+    // --------------------------------------------------------
     const packing =
       hasAmbali
         ? AMBALI_PACKING_CHARGE
         : 0;
 
+    // --------------------------------------------------------
+    // Final amount.
+    // --------------------------------------------------------
     const grandTotal =
       subtotal +
       delivery +

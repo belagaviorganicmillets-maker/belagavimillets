@@ -161,7 +161,7 @@ function productCardHTML(p, isCombo) {
               ${orderable ? "" : "disabled"}
             >−</button>
 
-            <span class="qty-val">1</span>
+            <span class="qty-val">0</span>
 
             <button
               type="button"
@@ -214,7 +214,7 @@ function renderProducts() {
         return;
       }
 
-      let qty = 1;
+      let qty = 0;
 
       const qtyVal =
         card.querySelector(".qty-val");
@@ -222,7 +222,7 @@ function renderProducts() {
       card
         .querySelector(".qty-dec")
         .addEventListener("click", () => {
-          qty = Math.max(1, qty - 1);
+          qty = Math.max(0, qty - 1);
           qtyVal.textContent = qty;
         });
 
@@ -239,7 +239,7 @@ function renderProducts() {
       addBtn.addEventListener(
         "click",
         () => {
-
+        if (qty === 0) return;
           addToCart(
             p.id,
             {
@@ -268,7 +268,7 @@ function renderProducts() {
             );
           }, 1200);
 
-          qty = 1;
+          qty = 0;
           qtyVal.textContent = qty;
         }
       );
