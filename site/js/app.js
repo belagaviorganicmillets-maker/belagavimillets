@@ -12,16 +12,15 @@ const THEME_COLORS = {
 };
 
 // ============================================================
-// Cart — single source of truth for every line item
+// Cart — single source of truth for every line item, whether it's
+// a powder pack, the combo pack, or a specific Ambali size variant.
+// Keyed by a unique line id so 200ml/300ml stay separate lines.
 // ============================================================
 const cart = {}; // lineId -> { id, name, sub, unitPrice, qty, isAmbali }
 
 function addToCart(lineId, item, qty) {
-  if (cart[lineId]) {
-    cart[lineId].qty += qty;
-  } else {
-    cart[lineId] = { ...item, qty };
-  }
+  if (cart[lineId]) cart[lineId].qty += qty;
+  else cart[lineId] = { ...item, qty };
 
   renderCart();
 }
@@ -33,23 +32,17 @@ function addToCart(lineId, item, qty) {
 const productGrid = document.getElementById("productGrid");
 
 function productCardHTML(p, isCombo) {
-  const t =
-    THEME_COLORS[p.theme] ||
-    THEME_COLORS.gold;
+  const t = THEME_COLORS[p.theme] || THEME_COLORS.gold;
 
   const availability =
     p.availability ||
-    (isCombo
-      ? COMBO_PRODUCT.availability
-      : "available");
+    (isCombo ? COMBO_PRODUCT.availability : "available");
 
-  const orderable =
-    availability === "available";
+  const orderable = availability === "available";
 
-  const benefitsHTML =
-    (isCombo ? [] : p.benefits)
-      .map(b => `<li>${b}</li>`)
-      .join("");
+  const benefitsHTML = (isCombo ? [] : p.benefits)
+    .map(b => `<li>${b}</li>`)
+    .join("");
 
   let badgeHTML = "";
 
@@ -67,8 +60,7 @@ function productCardHTML(p, isCombo) {
   const priceRow = `
     <div class="pcard-price-row">
       <div class="pcard-price">
-        ${money(p.price)}
-        <span> / ${p.packSize}</span>
+        ${money(p.price)}<span> / ${p.packSize}</span>
       </div>
 
       <div class="pcard-shelf">
@@ -81,9 +73,7 @@ function productCardHTML(p, isCombo) {
     ? `
       <ul class="combo-contents">
         ${p.includedProducts
-          .map(i =>
-            `<li>${i.name} <span>${i.size}</span></li>`
-          )
+          .map(i => `<li>${i.name} <span>${i.size}</span></li>`)
           .join("")}
       </ul>
     `
@@ -205,15 +195,29 @@ function renderProducts() {
       card
         .querySelector(".qty-dec")
         .addEventListener("click", () => {
-          qty = Math.max(1, qty - 1);
-          qtyVal.textContent = qty;
+
+          qty =
+            Math.max(
+              1,
+              qty - 1
+            );
+
+          qtyVal.textContent =
+            qty;
         });
 
       card
         .querySelector(".qty-inc")
         .addEventListener("click", () => {
-          qty = Math.min(20, qty + 1);
-          qtyVal.textContent = qty;
+
+          qty =
+            Math.min(
+              20,
+              qty + 1
+            );
+
+          qtyVal.textContent =
+            qty;
         });
 
       const addBtn =
@@ -243,16 +247,20 @@ function renderProducts() {
           );
 
           setTimeout(() => {
+
             addBtn.textContent =
               "Add to cart";
 
             addBtn.classList.remove(
               "added"
             );
+
           }, 1200);
 
           qty = 1;
-          qtyVal.textContent = qty;
+
+          qtyVal.textContent =
+            qty;
         }
       );
     });
@@ -262,6 +270,7 @@ function renderProducts() {
 // Know Your Five Millets — educational section
 // ============================================================
 function milletInfoCardHTML(m) {
+
   const t =
     THEME_COLORS[m.theme] ||
     THEME_COLORS.gold;
@@ -278,6 +287,7 @@ function milletInfoCardHTML(m) {
     >
 
       <div class="minfo-image">
+
         <img
           src="${m.grainImage}"
           alt="${m.name} grains"
@@ -285,6 +295,7 @@ function milletInfoCardHTML(m) {
           width="800"
           height="600"
         >
+
       </div>
 
       <div class="minfo-body">
@@ -310,6 +321,7 @@ function milletInfoCardHTML(m) {
 }
 
 function renderMilletInfo() {
+
   const el =
     document.getElementById(
       "milletInfoGrid"
@@ -319,7 +331,9 @@ function renderMilletInfo() {
 
   el.innerHTML =
     MILLET_INFO
-      .map(milletInfoCardHTML)
+      .map(
+        milletInfoCardHTML
+      )
       .join("");
 }
 
@@ -333,6 +347,7 @@ const ambaliGrid =
   );
 
 function ambaliCardHTML(a) {
+
   const t =
     THEME_COLORS[a.theme] ||
     THEME_COLORS.gold;
@@ -345,16 +360,20 @@ function ambaliCardHTML(a) {
   const variantsHTML =
     AMBALI_VARIANTS
       .map(v => `
+
         <div
           class="ambali-variant"
           data-size="${v.size}"
         >
 
           <div class="ambali-variant-label">
+
             ${v.size} glass
+
             <span>
               ${money(v.price)}
             </span>
+
           </div>
 
           <div class="qty-stepper">
@@ -380,6 +399,7 @@ function ambaliCardHTML(a) {
           </div>
 
         </div>
+
       `)
       .join("");
 
@@ -460,143 +480,179 @@ function ambaliCardHTML(a) {
 }
 
 function renderAmbali() {
+
   ambaliGrid.innerHTML =
     AMBALI_PRODUCTS
-      .map(ambaliCardHTML)
+      .map(
+        ambaliCardHTML
+      )
       .join("");
 
   ambaliGrid
-    .querySelectorAll(".ambali-card2")
-    .forEach((card, idx) => {
+    .querySelectorAll(
+      ".ambali-card2"
+    )
+    .forEach(
+      (card, idx) => {
 
-      const a =
-        AMBALI_PRODUCTS[idx];
+        const a =
+          AMBALI_PRODUCTS[idx];
 
-      if (!a.available) return;
+        if (!a.available) {
+          return;
+        }
 
-      const variantQty = {};
+        const variantQty = {};
 
-      card
-        .querySelectorAll(".ambali-variant")
-        .forEach(row => {
+        card
+          .querySelectorAll(
+            ".ambali-variant"
+          )
+          .forEach(row => {
 
-          const size =
-            row.dataset.size;
+            const size =
+              row.dataset.size;
 
-          variantQty[size] = 0;
+            variantQty[size] =
+              0;
 
-          const qtyVal =
-            row.querySelector(
-              ".qty-val"
-            );
-
-          row
-            .querySelector(".qty-dec")
-            .addEventListener(
-              "click",
-              () => {
-
-                variantQty[size] =
-                  Math.max(
-                    0,
-                    variantQty[size] - 1
-                  );
-
-                qtyVal.textContent =
-                  variantQty[size];
-              }
-            );
-
-          row
-            .querySelector(".qty-inc")
-            .addEventListener(
-              "click",
-              () => {
-
-                variantQty[size] =
-                  Math.min(
-                    20,
-                    variantQty[size] + 1
-                  );
-
-                qtyVal.textContent =
-                  variantQty[size];
-              }
-            );
-        });
-
-      card
-        .querySelector(
-          ".add-btn-ambali"
-        )
-        .addEventListener(
-          "click",
-          () => {
-
-            const chosen =
-              AMBALI_VARIANTS.filter(
-                v =>
-                  variantQty[v.size] > 0
+            const qtyVal =
+              row.querySelector(
+                ".qty-val"
               );
 
-            if (chosen.length === 0) {
-              return;
-            }
-
-            chosen.forEach(v => {
-
-              const lineId =
-                `${a.id}-ambali-${v.size}`;
-
-              addToCart(
-                lineId,
-                {
-                  id: lineId,
-                  name: a.name,
-                  sub: `${v.size} glass`,
-                  unitPrice: v.price,
-                  isAmbali: true
-                },
-                variantQty[v.size]
-              );
-            });
-
-            card
-              .querySelectorAll(
-                ".ambali-variant"
+            row
+              .querySelector(
+                ".qty-dec"
               )
-              .forEach(row => {
+              .addEventListener(
+                "click",
+                () => {
 
-                variantQty[
-                  row.dataset.size
-                ] = 0;
+                  variantQty[size] =
+                    Math.max(
+                      0,
+                      variantQty[size] - 1
+                    );
 
-                row.querySelector(
-                  ".qty-val"
-                ).textContent = "0";
-              });
-
-            const btn =
-              card.querySelector(
-                ".add-btn-ambali"
+                  qtyVal.textContent =
+                    variantQty[size];
+                }
               );
 
-            btn.textContent =
-              "Added ✓";
+            row
+              .querySelector(
+                ".qty-inc"
+              )
+              .addEventListener(
+                "click",
+                () => {
 
-            setTimeout(() => {
+                  variantQty[size] =
+                    Math.min(
+                      20,
+                      variantQty[size] + 1
+                    );
+
+                  qtyVal.textContent =
+                    variantQty[size];
+                }
+              );
+
+          });
+
+        card
+          .querySelector(
+            ".add-btn-ambali"
+          )
+          .addEventListener(
+            "click",
+            () => {
+
+              const chosen =
+                AMBALI_VARIANTS.filter(
+                  v =>
+                    variantQty[v.size] > 0
+                );
+
+              if (
+                chosen.length === 0
+              ) {
+                return;
+              }
+
+              chosen.forEach(
+                v => {
+
+                  const lineId =
+                    `${a.id}-ambali-${v.size}`;
+
+                  addToCart(
+                    lineId,
+                    {
+                      id: lineId,
+                      name: a.name,
+                      sub: `${v.size} glass`,
+                      unitPrice: v.price,
+                      isAmbali: true
+                    },
+                    variantQty[v.size]
+                  );
+
+                }
+              );
+
+              card
+                .querySelectorAll(
+                  ".ambali-variant"
+                )
+                .forEach(
+                  row => {
+
+                    variantQty[
+                      row.dataset.size
+                    ] = 0;
+
+                    row
+                      .querySelector(
+                        ".qty-val"
+                      )
+                      .textContent =
+                      "0";
+
+                  }
+                );
+
+              const btn =
+                card.querySelector(
+                  ".add-btn-ambali"
+                );
+
               btn.textContent =
-                "Add to cart";
-            }, 1200);
-          }
-        );
-    });
+                "Added ✓";
+
+              setTimeout(
+                () => {
+
+                  btn.textContent =
+                    "Add to cart";
+
+                },
+                1200
+              );
+
+            }
+          );
+
+      }
+    );
 }
 
 // ============================================================
 // Preparation guide
 // ============================================================
 function renderPrepSteps() {
+
   const el =
     document.getElementById(
       "prepSteps"
@@ -606,23 +662,27 @@ function renderPrepSteps() {
 
   el.innerHTML =
     PREP_STEPS
-      .map(s => `
-        <div class="prep-step">
+      .map(
+        s => `
 
-          <div class="prep-step-num">
-            ${s.step}
+          <div class="prep-step">
+
+            <div class="prep-step-num">
+              ${s.step}
+            </div>
+
+            <div class="prep-step-title">
+              ${s.title}
+            </div>
+
+            <div class="prep-step-detail">
+              ${s.detail}
+            </div>
+
           </div>
 
-          <div class="prep-step-title">
-            ${s.title}
-          </div>
-
-          <div class="prep-step-detail">
-            ${s.detail}
-          </div>
-
-        </div>
-      `)
+        `
+      )
       .join("");
 }
 
@@ -680,6 +740,7 @@ const checkoutError =
   );
 
 function openCart() {
+
   cartOverlay.classList.add(
     "open"
   );
@@ -690,6 +751,7 @@ function openCart() {
 }
 
 function closeCart() {
+
   cartOverlay.classList.remove(
     "open"
   );
@@ -717,9 +779,11 @@ cartOverlay.addEventListener(
 document.addEventListener(
   "keydown",
   e => {
+
     if (e.key === "Escape") {
       closeCart();
     }
+
   }
 );
 
@@ -727,19 +791,23 @@ document.addEventListener(
 // Render cart
 // ============================================================
 function renderCart() {
+
   const items =
     Object.values(cart);
 
   const totalQty =
     items.reduce(
-      (s, i) => s + i.qty,
+      (s, i) =>
+        s + i.qty,
       0
     );
 
   cartCount.textContent =
     totalQty;
 
-  if (items.length === 0) {
+  if (
+    items.length === 0
+  ) {
 
     cartBody.innerHTML =
       '<p class="cart-empty">Your cart is empty. Add a fresh Ambali to get started.</p>';
@@ -758,87 +826,100 @@ function renderCart() {
   const totals =
     computeTotals(items);
 
-  document.getElementById(
-    "freshNote"
-  ).style.display =
+  document
+    .getElementById(
+      "freshNote"
+    )
+    .style.display =
     totals.hasAmbali
       ? "block"
       : "none";
 
   cartBody.innerHTML =
     items
-      .map(item => `
-        <div
-          class="cart-item"
-          data-id="${item.id}"
-        >
+      .map(
+        item => `
 
-          <div class="cart-item-info">
+          <div
+            class="cart-item"
+            data-id="${item.id}"
+          >
 
-            <h4>
-              ${item.name}
-            </h4>
+            <div class="cart-item-info">
 
-            <div class="sub">
-              ${item.sub}
-              ·
-              ${money(item.unitPrice)}
-              each
-            </div>
+              <h4>
+                ${item.name}
+              </h4>
 
-            <div class="cart-item-row">
+              <div class="sub">
+                ${item.sub}
+                ·
+                ${money(item.unitPrice)}
+                each
+              </div>
 
-              <div class="qty-stepper">
+              <div class="cart-item-row">
 
-                <button
-                  type="button"
-                  class="cart-qty-dec"
-                  aria-label="Decrease quantity"
-                >−</button>
+                <div class="qty-stepper">
 
-                <span class="qty-val">
-                  ${item.qty}
+                  <button
+                    type="button"
+                    class="cart-qty-dec"
+                    aria-label="Decrease quantity"
+                  >−</button>
+
+                  <span class="qty-val">
+                    ${item.qty}
+                  </span>
+
+                  <button
+                    type="button"
+                    class="cart-qty-inc"
+                    aria-label="Increase quantity"
+                  >+</button>
+
+                </div>
+
+                <span class="cart-item-price">
+                  ${money(lineTotal(item))}
                 </span>
-
-                <button
-                  type="button"
-                  class="cart-qty-inc"
-                  aria-label="Increase quantity"
-                >+</button>
 
               </div>
 
-              <span class="cart-item-price">
-                ${money(lineTotal(item))}
-              </span>
+              <button
+                type="button"
+                class="remove-btn"
+              >
+                Remove
+              </button>
 
             </div>
 
-            <button
-              type="button"
-              class="remove-btn"
-            >Remove</button>
-
           </div>
 
-        </div>
-      `)
+        `
+      )
       .join("");
 
   cartSubtotal.textContent =
-    money(totals.subtotal);
+    money(
+      totals.subtotal
+    );
 
   const chargesRow =
     document.getElementById(
       "cartCharges"
     );
 
-  if (totals.hasAmbali) {
+  if (
+    totals.hasAmbali
+  ) {
 
     chargesRow.style.display =
       "block";
 
     chargesRow.innerHTML = `
+
       <div class="cart-charge-row">
         <span>Delivery</span>
         <span>
@@ -859,6 +940,7 @@ function renderCart() {
           ${money(totals.grandTotal)}
         </span>
       </div>
+
     `;
 
   } else {
@@ -868,65 +950,74 @@ function renderCart() {
 
     chargesRow.innerHTML =
       "";
+
   }
 
   cartBody
-    .querySelectorAll(".cart-item")
-    .forEach(row => {
+    .querySelectorAll(
+      ".cart-item"
+    )
+    .forEach(
+      row => {
 
-      const id =
-        row.dataset.id;
+        const id =
+          row.dataset.id;
 
-      row
-        .querySelector(
-          ".cart-qty-dec"
-        )
-        .addEventListener(
-          "click",
-          () => {
+        row
+          .querySelector(
+            ".cart-qty-dec"
+          )
+          .addEventListener(
+            "click",
+            () => {
 
-            cart[id].qty =
-              Math.max(
-                1,
-                cart[id].qty - 1
-              );
+              cart[id].qty =
+                Math.max(
+                  1,
+                  cart[id].qty - 1
+                );
 
-            renderCart();
-          }
-        );
+              renderCart();
 
-      row
-        .querySelector(
-          ".cart-qty-inc"
-        )
-        .addEventListener(
-          "click",
-          () => {
+            }
+          );
 
-            cart[id].qty =
-              Math.min(
-                20,
-                cart[id].qty + 1
-              );
+        row
+          .querySelector(
+            ".cart-qty-inc"
+          )
+          .addEventListener(
+            "click",
+            () => {
 
-            renderCart();
-          }
-        );
+              cart[id].qty =
+                Math.min(
+                  20,
+                  cart[id].qty + 1
+                );
 
-      row
-        .querySelector(
-          ".remove-btn"
-        )
-        .addEventListener(
-          "click",
-          () => {
+              renderCart();
 
-            delete cart[id];
+            }
+          );
 
-            renderCart();
-          }
-        );
-    });
+        row
+          .querySelector(
+            ".remove-btn"
+          )
+          .addEventListener(
+            "click",
+            () => {
+
+              delete cart[id];
+
+              renderCart();
+
+            }
+          );
+
+      }
+    );
 
   updateCheckoutButtonLabel();
 }
@@ -935,10 +1026,14 @@ function renderCart() {
 // Checkout button label
 // ============================================================
 function updateCheckoutButtonLabel() {
+
   const items =
     Object.values(cart);
 
-  if (items.length === 0) {
+  if (
+    items.length === 0
+  ) {
+
     checkoutBtn.textContent =
       "Pay & Place Order";
 
@@ -956,6 +1051,7 @@ function updateCheckoutButtonLabel() {
 // Phone validation — 10-digit Indian mobile number
 // ============================================================
 function isValidPhone(phone) {
+
   const digits =
     phone.replace(
       /[\s-]/g,
@@ -980,6 +1076,552 @@ function isValidPhone(phone) {
 // ============================================================
 const orderConfirm =
   document.getElementById(
+    "orderConfirm"
+  );
+
+const orderConfirmClose =
+  document.getElementById(
+    "orderConfirmClose"
+  );
+
+const checkoutFieldsEl =
+  document.querySelector(
+    ".checkout-fields"
+  );
+
+const paymentNoticeEl =
+  document.getElementById(
+    "paymentNotice"
+  );
+
+const checkoutNoteEl =
+  document.querySelector(
+    ".checkout-note"
+  );
+
+function showConfirm(orderId) {
+
+  checkoutFieldsEl.style.display =
+    "none";
+
+  checkoutBtn.style.display =
+    "none";
+
+  if (
+    checkoutNoteEl
+  ) {
+
+    checkoutNoteEl.style.display =
+      "none";
+
+  }
+
+  if (
+    paymentNoticeEl
+  ) {
+
+    paymentNoticeEl.style.display =
+      "none";
+
+  }
+
+  document
+    .getElementById(
+      "orderConfirmId"
+    )
+    .textContent =
+    orderId;
+
+  const statusLine =
+    document.getElementById(
+      "orderConfirmStatus"
+    );
+
+  statusLine.textContent =
+    "Payment successful — your order has been received and confirmed.";
+
+  orderConfirm.style.display =
+    "block";
+}
+
+function hideConfirm() {
+
+  checkoutFieldsEl.style.display =
+    "flex";
+
+  checkoutBtn.style.display =
+    "flex";
+
+  if (
+    checkoutNoteEl
+  ) {
+
+    checkoutNoteEl.style.display =
+      "block";
+
+  }
+
+  if (
+    paymentNoticeEl
+  ) {
+
+    paymentNoticeEl.style.display =
+      "block";
+
+  }
+
+  orderConfirm.style.display =
+    "none";
+}
+
+// ============================================================
+// Confirmation close / reset cart
+// ============================================================
+orderConfirmClose.addEventListener(
+  "click",
+  () => {
+
+    hideConfirm();
+
+    closeCart();
+
+    Object.keys(cart)
+      .forEach(
+        id => {
+          delete cart[id];
+        }
+      );
+
+    document
+      .getElementById(
+        "custName"
+      )
+      .value = "";
+
+    document
+      .getElementById(
+        "custPhone"
+      )
+      .value = "";
+
+    document
+      .getElementById(
+        "custAddress"
+      )
+      .value = "";
+
+    renderCart();
+
+  }
+);
+
+// ============================================================
+// Order ID generation
+// Kept inside app.js so checkout does not depend on another
+// script loading before this file.
+// ============================================================
+function generateOrderId() {
+
+  const timestamp =
+    Date.now()
+      .toString(36)
+      .toUpperCase();
+
+  const random =
+    Math.random()
+      .toString(36)
+      .slice(2, 7)
+      .toUpperCase();
+
+  return `BOM-${timestamp}-${random}`;
+}
+
+// ============================================================
+// Checkout
+//
+// Flow:
+//
+// 1. Validate customer details
+// 2. Calculate final total
+// 3. Generate order ID
+// 4. Create Razorpay order through /api/create-order
+// 5. Open Razorpay secure checkout
+// 6. Verify payment through /api/verify-payment
+// 7. ONLY after verified payment:
+//      - open WhatsApp
+//      - show order confirmation
+//
+// No COD.
+// No offline payment.
+// No WhatsApp order for unpaid orders.
+// ============================================================
+checkoutBtn.addEventListener(
+  "click",
+  () => {
+
+    const name =
+      document
+        .getElementById(
+          "custName"
+        )
+        .value
+        .trim();
+
+    const phone =
+      document
+        .getElementById(
+          "custPhone"
+        )
+        .value
+        .trim();
+
+    const address =
+      document
+        .getElementById(
+          "custAddress"
+        )
+        .value
+        .trim();
+
+    // ----------------------------------------------------------
+    // Clear previous checkout error
+    // ----------------------------------------------------------
+    checkoutError.style.display =
+      "none";
+
+    checkoutError.textContent =
+      "";
+
+    // ----------------------------------------------------------
+    // Validate name and phone
+    // ----------------------------------------------------------
+    if (
+      !name ||
+      !phone
+    ) {
+
+      checkoutError.textContent =
+        "Please add your name and phone number so we can confirm the order.";
+
+      checkoutError.style.display =
+        "block";
+
+      return;
+    }
+
+    // ----------------------------------------------------------
+    // Validate Indian mobile number
+    // ----------------------------------------------------------
+    if (
+      !isValidPhone(phone)
+    ) {
+
+      checkoutError.textContent =
+        "Please enter a valid 10-digit mobile number.";
+
+      checkoutError.style.display =
+        "block";
+
+      return;
+    }
+
+    // ----------------------------------------------------------
+    // Delivery address is required
+    // ----------------------------------------------------------
+    if (
+      !address
+    ) {
+
+      checkoutError.textContent =
+        "Please add a delivery address — we currently deliver only, no stall pickup.";
+
+      checkoutError.style.display =
+        "block";
+
+      return;
+    }
+
+    // ----------------------------------------------------------
+    // Make sure cart isn't empty
+    // ----------------------------------------------------------
+    const items =
+      Object.values(cart);
+
+    if (
+      items.length === 0
+    ) {
+
+      checkoutError.textContent =
+        "Your cart is empty. Please add an item before continuing.";
+
+      checkoutError.style.display =
+        "block";
+
+      return;
+    }
+
+    // ----------------------------------------------------------
+    // Calculate final total
+    // ----------------------------------------------------------
+    const totals =
+      computeTotals(items);
+
+    // ----------------------------------------------------------
+    // Generate order ID
+    // ----------------------------------------------------------
+    const orderId =
+      generateOrderId();
+
+    // ----------------------------------------------------------
+    // Disable checkout while payment process starts
+    // ----------------------------------------------------------
+    checkoutBtn.disabled =
+      true;
+
+    const originalButtonText =
+      checkoutBtn.textContent;
+
+    checkoutBtn.textContent =
+      "Opening secure payment…";
+
+    // ----------------------------------------------------------
+    // Start secure payment.
+    //
+    // payment.js:
+    //
+    // 1. Creates the Razorpay order on the server.
+    // 2. Opens Razorpay Checkout.
+    // 3. Sends payment details to /api/verify-payment.
+    // 4. Calls the success callback ONLY after
+    //    server-side verification succeeds.
+    // ----------------------------------------------------------
+    initiatePayment(
+      totals,
+      {
+        name,
+        phone,
+        address
+      },
+      items,
+      paymentResult => {
+
+        checkoutBtn.disabled =
+          false;
+
+        checkoutBtn.textContent =
+          originalButtonText;
+
+        // ------------------------------------------------------
+        // PAYMENT SUCCESS
+        // ------------------------------------------------------
+        if (
+          paymentResult &&
+          paymentResult.status === "paid"
+        ) {
+
+          const message =
+            buildWhatsAppMessage(
+              items,
+              totals,
+              {
+                name,
+                phone,
+                address
+              },
+              orderId,
+              "paid"
+            );
+
+          // WhatsApp opens ONLY after verified payment.
+          openWhatsAppOrder(
+            message
+          );
+
+          // Confirmation is shown ONLY after verified payment.
+          showConfirm(
+            orderId
+          );
+
+          return;
+        }
+
+        // ------------------------------------------------------
+        // PAYMENT CANCELLED
+        // ------------------------------------------------------
+        if (
+          paymentResult &&
+          (
+            paymentResult.status ===
+              "cancelled" ||
+            paymentResult.status ===
+              "canceled"
+          )
+        ) {
+
+          checkoutError.textContent =
+            "Payment was cancelled. Your order has not been confirmed. Please try again.";
+
+          checkoutError.style.display =
+            "block";
+
+          return;
+        }
+
+        // ------------------------------------------------------
+        // PAYMENT FAILED / NOT VERIFIED
+        // ------------------------------------------------------
+        checkoutError.textContent =
+          "Payment could not be completed or verified. Your order has not been confirmed. Please try again.";
+
+        checkoutError.style.display =
+          "block";
+      },
+
+      error => {
+
+        checkoutBtn.disabled =
+          false;
+
+        checkoutBtn.textContent =
+          originalButtonText;
+
+        checkoutError.textContent =
+          error ||
+          "Unable to start secure payment. Please try again.";
+
+        checkoutError.style.display =
+          "block";
+      }
+    );
+  }
+);
+
+// ============================================================
+// Scroll reveal
+// ============================================================
+function initReveal() {
+
+  const reduceMotion =
+    window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+  const revealEls =
+    document.querySelectorAll(
+      ".reveal"
+    );
+
+  if (
+    reduceMotion
+  ) {
+
+    revealEls.forEach(
+      el =>
+        el.classList.add(
+          "in"
+        )
+    );
+
+  } else {
+
+    const io =
+      new IntersectionObserver(
+        entries => {
+
+          entries.forEach(
+            entry => {
+
+              if (
+                entry.isIntersecting
+              ) {
+
+                entry.target.classList.add(
+                  "in"
+                );
+
+                io.unobserve(
+                  entry.target
+                );
+
+              }
+
+            }
+          );
+
+        },
+        {
+          threshold: 0.15
+        }
+      );
+
+    revealEls.forEach(
+      el =>
+        io.observe(el)
+    );
+
+  }
+}
+
+// ============================================================
+// Marquee strip
+// ============================================================
+function initMarquee() {
+
+  const stripItems = [
+    "FOXTAIL",
+    "BARNYARD",
+    "LITTLE",
+    "KODO",
+    "BROWNTOP",
+    "STONE-GROUND",
+    "SLOW-SIMMERED",
+    "NO PRESERVATIVES"
+  ];
+
+  const track =
+    document.getElementById(
+      "stripTrack"
+    );
+
+  if (!track) return;
+
+  const doubled = [
+    ...stripItems,
+    ...stripItems
+  ];
+
+  track.innerHTML =
+    doubled
+      .map(
+        i =>
+          `<span>${i}</span>`
+      )
+      .join("");
+}
+
+// ============================================================
+// Init
+// ============================================================
+document
+  .querySelectorAll(
+    ".delivery-area-text"
+  )
+  .forEach(
+    el => {
+
+      el.textContent =
+        CONFIG.deliveryAreaMessage;
+
+    }
+  );
+
+renderProducts();
+renderMilletInfo();
+renderAmbali();
+renderPrepSteps();
+initMarquee();
+initReveal();
+renderCart();etElementById(
     "orderConfirm"
   );
 
