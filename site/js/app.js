@@ -157,7 +157,7 @@ function productCardHTML(p, isCombo) {
               class="qty-dec"
               aria-label="Decrease ${p.name} quantity"
               ${orderable ? "" : "disabled"}
-            >âˆ’</button>
+            >−</button>
 
             <span class="qty-val">1</span>
 
