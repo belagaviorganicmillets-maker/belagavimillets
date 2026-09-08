@@ -67,10 +67,26 @@ module.exports = async function handler(req, res) {
 
   try {
 
+    // --------------------------------------------------------
+    // Safely read the request body.
+    // --------------------------------------------------------
+    let body;
+
+    try {
+      body = req.body || {};
+    } catch (error) {
+      console.error("Invalid request JSON:", error);
+
+      return res.status(400).json({
+        success: false,
+        error: "Invalid request JSON"
+      });
+    }
+
     const {
       items,
       receipt
-    } = req.body || {};
+    } = body;
 
     // --------------------------------------------------------
     // Validate cart payload.
