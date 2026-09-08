@@ -19,6 +19,122 @@
   >
 
   <link rel="stylesheet" href="css/styles.css">
+
+  <style>
+    /* =========================================================
+       BELAGAVI DELIVERY NOTICE
+       ========================================================= */
+
+    .hero-delivery-notice {
+      margin-bottom: 26px;
+      padding: 16px 22px;
+      border: 1px solid rgba(232, 187, 55, 0.55);
+      border-radius: 8px;
+      background: rgba(232, 187, 55, 0.08);
+      color: #e8bb37;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      line-height: 1.5;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .delivery-location-check {
+      margin: 20px 0 18px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.35);
+    }
+
+    .delivery-location-question {
+      margin: 0 0 14px;
+      color: var(--forest-deep);
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    .delivery-location-options {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .delivery-location-option {
+      position: relative;
+      display: inline-flex;
+    }
+
+    .delivery-location-option input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .delivery-location-option label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 90px;
+      padding: 10px 18px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: var(--husk-light);
+      color: var(--forest-deep);
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .delivery-location-option input:checked + label {
+      background: var(--forest-deep);
+      color: var(--husk-light);
+      border-color: var(--forest-deep);
+    }
+
+    .delivery-location-option label:hover {
+      border-color: var(--forest-deep);
+    }
+
+    .delivery-location-error {
+      display: none;
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 7px;
+      background: rgba(177, 65, 45, 0.08);
+      color: #9d3928;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    .delivery-location-confirmed {
+      display: none;
+      margin-top: 12px;
+      color: var(--forest-deep);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .checkout-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    @media (max-width: 600px) {
+      .hero-delivery-notice {
+        font-size: 12px;
+        padding: 14px 16px;
+        letter-spacing: 1px;
+      }
+
+      .delivery-location-option label {
+        min-width: 80px;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -77,6 +193,11 @@
 
 <section class="hero">
   <div class="wrap hero-inner">
+
+    <!-- DELIVERY MESSAGE -->
+    <div class="hero-delivery-notice">
+      Delivery Available Only In Belagavi City, Karnataka
+    </div>
 
     <div class="eyebrow">
       100% Organic &amp; Natural
@@ -296,7 +417,6 @@
 
 <!-- =========================
      KNOW YOUR FIVE MILLETS
-     MOVED ABOVE AMBALI
 ========================= -->
 
 <section class="millet-info">
@@ -424,7 +544,6 @@
 
 <!-- =========================
      DELIVERY + PREPARATION
-     BELOW MILLET POWDERS
 ========================= -->
 
 <section class="ambali-info-section">
@@ -432,7 +551,6 @@
   <div class="wrap">
 
     <div class="ambali-info-bar reveal">
-
 
       <!-- DELIVERY & PACKING -->
 
@@ -514,7 +632,6 @@
   <div class="wrap">
 
     <div class="order-panel reveal">
-
 
       <!-- ORDER INFORMATION -->
 
@@ -824,6 +941,71 @@
       </p>
 
 
+      <!-- =====================================================
+           BELAGAVI LOCATION CHECK
+           ===================================================== -->
+
+      <div class="delivery-location-check">
+
+        <p class="delivery-location-question">
+          Do you live in Belagavi city, Karnataka?
+        </p>
+
+        <div class="delivery-location-options">
+
+          <div class="delivery-location-option">
+
+            <input
+              type="radio"
+              name="belagaviDelivery"
+              id="belagaviYes"
+              value="yes"
+            >
+
+            <label for="belagaviYes">
+              Yes
+            </label>
+
+          </div>
+
+
+          <div class="delivery-location-option">
+
+            <input
+              type="radio"
+              name="belagaviDelivery"
+              id="belagaviNo"
+              value="no"
+            >
+
+            <label for="belagaviNo">
+              No
+            </label>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="delivery-location-confirmed"
+          id="deliveryLocationConfirmed"
+        >
+          ✓ Great — we deliver within Belagavi city, Karnataka.
+        </div>
+
+
+        <div
+          class="delivery-location-error"
+          id="deliveryLocationError"
+        >
+          Delivery is available only in Belagavi city, Karnataka.
+          We currently do not deliver outside Belagavi.
+        </div>
+
+      </div>
+
+
       <div
         class="field-error"
         id="checkoutError"
@@ -850,6 +1032,7 @@
     <button
       class="checkout-btn"
       id="checkoutBtn"
+      disabled
     >
       Pay &amp; Place Order
     </button>
@@ -904,9 +1087,6 @@
 <!-- =========================
      JAVASCRIPT
 ========================= -->
-<!-- =========================
-     JAVASCRIPT
-========================= -->
 
 <script src="js/data/config.js"></script>
 
@@ -930,6 +1110,90 @@
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 <script src="js/app.js"></script>
+
+
+<!-- =========================================================
+     BELAGAVI DELIVERY CHECK LOGIC
+     This does NOT modify app.js or Razorpay code.
+     ========================================================= -->
+
+<script>
+  (function () {
+
+    const yesOption = document.getElementById("belagaviYes");
+    const noOption = document.getElementById("belagaviNo");
+
+    const checkoutBtn =
+      document.getElementById("checkoutBtn");
+
+    const errorMessage =
+      document.getElementById("deliveryLocationError");
+
+    const confirmedMessage =
+      document.getElementById("deliveryLocationConfirmed");
+
+
+    if (
+      !yesOption ||
+      !noOption ||
+      !checkoutBtn
+    ) {
+      return;
+    }
+
+
+    function updateDeliveryEligibility() {
+
+      if (yesOption.checked) {
+
+        checkoutBtn.disabled = false;
+
+        errorMessage.style.display = "none";
+
+        confirmedMessage.style.display = "block";
+
+      }
+
+      else if (noOption.checked) {
+
+        checkoutBtn.disabled = true;
+
+        confirmedMessage.style.display = "none";
+
+        errorMessage.style.display = "block";
+
+      }
+
+      else {
+
+        checkoutBtn.disabled = true;
+
+        errorMessage.style.display = "none";
+
+        confirmedMessage.style.display = "none";
+
+      }
+
+    }
+
+
+    yesOption.addEventListener(
+      "change",
+      updateDeliveryEligibility
+    );
+
+
+    noOption.addEventListener(
+      "change",
+      updateDeliveryEligibility
+    );
+
+
+    updateDeliveryEligibility();
+
+  })();
+</script>
+
 
 </body>
 </html>
