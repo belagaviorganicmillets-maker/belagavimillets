@@ -848,43 +848,24 @@ function renderCart() {
     document.getElementById(
       "cartCharges"
     );
+chargesRow.style.display = "block";
 
-  if (totals.hasAmbali) {
+chargesRow.innerHTML = `
+  <div class="cart-charge-row">
+    <span>Delivery</span>
+    <span>${totals.delivery === 0 ? "FREE" : money(totals.delivery)}</span>
+  </div>
 
-    chargesRow.style.display =
-      "block";
+  <div class="cart-charge-row">
+    <span>Packing</span>
+    <span>${money(totals.packing)}</span>
+  </div>
 
-    chargesRow.innerHTML = `
-      <div class="cart-charge-row">
-        <span>Delivery</span>
-        <span>
-          ${money(totals.delivery)}
-        </span>
-      </div>
-
-      <div class="cart-charge-row">
-        <span>Packing</span>
-        <span>
-          ${money(totals.packing)}
-        </span>
-      </div>
-
-      <div class="cart-charge-row cart-grand-total">
-        <span>Total</span>
-        <span>
-          ${money(totals.grandTotal)}
-        </span>
-      </div>
-    `;
-
-  } else {
-
-    chargesRow.style.display =
-      "none";
-
-    chargesRow.innerHTML =
-      "";
-  }
+  <div class="cart-charge-row cart-grand-total">
+    <span>Total</span>
+    <span>${money(totals.grandTotal)}</span>
+  </div>
+`;
 
   cartBody
     .querySelectorAll(".cart-item")

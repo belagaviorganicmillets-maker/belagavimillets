@@ -55,19 +55,11 @@ function computeTotals(cartItems) {
 
   let delivery = 0;
 
-  if (hasAmbali) {
-
-    if (subtotal >= 99) {
-      delivery = 0;
-    } else {
-      delivery = CONFIG.ambaliDeliveryCharge;
-    }
-
-  } else {
-
-    delivery = 0;
-
-  }
+if (subtotal >= 99) {
+  delivery = 0;
+} else {
+  delivery = CONFIG.ambaliDeliveryCharge;
+}
 
   // ----------------------------------------------------------
   // PACKING
