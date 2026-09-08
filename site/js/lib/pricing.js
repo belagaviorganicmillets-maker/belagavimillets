@@ -69,7 +69,7 @@ if (subtotal >= 99) {
 
   const packing = hasAmbali
     ? CONFIG.ambaliPackingCharge
-    : 0;
+    : 10;
 
   // ----------------------------------------------------------
   // FINAL TOTAL
