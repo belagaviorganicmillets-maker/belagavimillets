@@ -2322,3 +2322,63 @@ footer{
     text-align: left;
   }
 }
+/* =========================================================
+   BELAGAVI DELIVERY MOVING STRIP
+   ========================================================= */
+
+.delivery-banner {
+  width: 100%;
+  overflow: hidden;
+  background: var(--gold);
+  color: var(--forest-deep);
+  border-top: 1px solid rgba(31, 62, 46, 0.2);
+  border-bottom: 1px solid rgba(31, 62, 46, 0.2);
+  padding: 14px 0;
+  margin-bottom: 28px;
+}
+
+.delivery-banner-track {
+  display: flex;
+  width: max-content;
+  animation: deliveryScroll 18s linear infinite;
+  white-space: nowrap;
+}
+
+.delivery-banner-track span {
+  display: block;
+  padding: 0 55px;
+
+  font-family: "JetBrains Mono", monospace;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+@keyframes deliveryScroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-25%);
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .delivery-banner {
+    padding: 12px 0;
+    margin-bottom: 22px;
+  }
+
+  .delivery-banner-track {
+    animation-duration: 14s;
+  }
+
+  .delivery-banner-track span {
+    padding: 0 35px;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+  }
+}

@@ -10,8 +10,8 @@
  * own product entry instead of duplicating ₹39/₹49 five times.
  */
 const AMBALI_VARIANTS = [
-  { size: "200ml", price: 39 },
-  { size: "300ml", price: 49 }
+ { size: "200ml", price: 39, isAmbali: true },
+{ size: "300ml", price: 49, isAmbali: true }
 ];
 
 /**
