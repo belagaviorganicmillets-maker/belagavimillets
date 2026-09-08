@@ -378,7 +378,7 @@ function ambaliCardHTML(a) {
               class="qty-dec"
               aria-label="Decrease ${a.name} ${v.size} quantity"
               ${a.available ? "" : "disabled"}
-            >âˆ’</button>
+            >−</button>
 
             <span class="qty-val">
               0
@@ -808,7 +808,7 @@ function renderCart() {
                   type="button"
                   class="cart-qty-dec"
                   aria-label="Decrease quantity"
-                >âˆ’</button>
+                >−</button>
 
                 <span class="qty-val">
                   ${item.qty}
