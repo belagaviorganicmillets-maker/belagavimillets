@@ -28,11 +28,8 @@ module.exports = async function handler(req, res) {
       });
     }
 
-    const keyId =
-      process.env.RAZORPAY_KEY_ID;
-
-    const keySecret =
-      process.env.RAZORPAY_KEY_SECRET;
+    const keyId = process.env.Razorpay_key_id;
+const keySecret = process.env.Razorpay_key_secret;
 
     if (!keyId || !keySecret) {
       console.error(
