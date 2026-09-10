@@ -1210,7 +1210,7 @@ checkoutBtn.addEventListener(
       checkoutBtn.textContent;
 
     checkoutBtn.textContent =
-      "Opening secure paymentâ€¦";
+      "Opening secure payment";
 
     // --------------------------------------------------------
     // Start Razorpay payment
