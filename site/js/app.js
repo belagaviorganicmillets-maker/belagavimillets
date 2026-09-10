@@ -13,7 +13,7 @@
   return `BOM-${timestamp}-${random}`;
 }
 // ============================================================
-// Theme colours per millet drives card accents, badges, etc.
+// Theme colours per millet â€” drives card accents, badges, etc.
 // One place to adjust brand colours.
 // ============================================================
 const THEME_COLORS = {
@@ -26,7 +26,7 @@ const THEME_COLORS = {
 };
 
 // ============================================================
-// Cart - single source of truth for every line item
+// Cart â€” single source of truth for every line item
 // ============================================================
 const cart = {}; // lineId -> { id, name, sub, unitPrice, qty, isAmbali }
 
@@ -275,7 +275,7 @@ function renderProducts() {
     });
 }
 // ============================================================
-// Know Your Five Millets - educational section
+// Know Your Five Millets â€” educational section
 // ============================================================
 function milletInfoCardHTML(m) {
   const t =
@@ -950,7 +950,7 @@ function updateCheckoutButtonLabel() {
 }
 
 // ============================================================
-// Phone validation - 10-digit Indian mobile number
+// Phone validation â€” 10-digit Indian mobile number
 // ============================================================
 function isValidPhone(phone) {
   const digits =
@@ -1029,7 +1029,7 @@ function showConfirm(orderId) {
     );
 
   statusLine.textContent =
-    "Payment successful your order has been received and confirmed.";
+    "Payment successful â€” your order has been received and confirmed.";
 
   orderConfirm.style.display =
     "block";
@@ -1261,19 +1261,28 @@ checkoutBtn.addEventListener(
         //
         // ONLY NOW create/send the WhatsApp order.
         // ----------------------------------------------------
-   const message = buildWhatsAppMessage(
-  items,
-  totals,
-  { name, phone, address },
-  orderId,
-  "paid"
-);
+        const message =
+          buildWhatsAppMessage(
+            items,
+            totals,
+            {
+              name,
+              phone,
+              address
+            },
+            orderId,
+            "paid"
+          );
 
-showConfirm(orderId);
+        openWhatsAppOrder(
+          message
+        );
 
-setTimeout(() => {
-  openWhatsAppOrder(message);
-}, 1500);
+        // ----------------------------------------------------
+        // ONLY NOW show confirmation.
+        // ----------------------------------------------------
+        showConfirm(orderId);
+      },
 
       // ------------------------------------------------------
       // PAYMENT FAILURE / CANCELLED
