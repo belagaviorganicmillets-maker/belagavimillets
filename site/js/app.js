@@ -1029,7 +1029,7 @@ function showConfirm(orderId) {
     );
 
   statusLine.textContent =
-    "Payment successful â€” your order has been received and confirmed.";
+    "Payment successful your order has been received and confirmed.";
 
   orderConfirm.style.display =
     "block";
@@ -1274,14 +1274,11 @@ checkoutBtn.addEventListener(
             "paid"
           );
 
-        openWhatsAppOrder(
-          message
-        );
-
-        // ----------------------------------------------------
-        // ONLY NOW show confirmation.
-        // ----------------------------------------------------
         showConfirm(orderId);
+
+setTimeout(() => {
+  openWhatsAppOrder(message);
+}, 1500);
       },
 
       // ------------------------------------------------------
