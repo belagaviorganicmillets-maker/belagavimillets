@@ -62,15 +62,8 @@ function buildWhatsAppMessage(
  * Razorpay payment verification.
  */
 function openWhatsAppOrder(message) {
-  const phone =
-    CONFIG.whatsappNumber;
+  const phone = CONFIG.whatsappNumber;
+  const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 
-  const url =
-    `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-
-  window.open(
-    url,
-    "_blank",
-    "noopener,noreferrer"
-  );
+  window.location.href = url;
 }
