@@ -177,28 +177,23 @@ module.exports = async function handler(req, res) {
       subtotal +=
         unitPrice * item.qty;
     }
+// --------------------------------------------------------
+// DELIVERY & PACKING LOGIC
+//
+// All orders:
+// Subtotal BELOW ₹99  -> ₹30 delivery
+// Subtotal ₹99 OR ABOVE -> FREE delivery
+//
+// Packing charge = ₹10 for every order.
+// These charges are fixed per order and do not multiply by quantity.
+// --------------------------------------------------------
+   const delivery =
+  subtotal < 99
+    ? AMBALI_DELIVERY_CHARGE
+    : 0;
 
-    // --------------------------------------------------------
-    // DELIVERY LOGIC
-    //
-    // Ambali subtotal BELOW ₹99  -> ₹30 delivery
-    // Ambali subtotal ₹99 OR ABOVE -> FREE delivery
-    //
-    // Packing charge remains ₹10.
-    // Both charges apply only when the order contains Ambali.
-    // --------------------------------------------------------
-    const delivery =
-      hasAmbali && subtotal < 99
-        ? AMBALI_DELIVERY_CHARGE
-        : 0;
-
-    // --------------------------------------------------------
-    // Packing charge remains ₹10 for every Ambali order.
-    // --------------------------------------------------------
-    const packing =
-      hasAmbali
-        ? AMBALI_PACKING_CHARGE
-        : 0;
+const packing =
+  AMBALI_PACKING_CHARGE;
 
     // --------------------------------------------------------
     // Final amount.

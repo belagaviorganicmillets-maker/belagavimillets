@@ -27,52 +27,22 @@ function buildWhatsAppMessage(
     `ORDER:`,
     ...lines,
     ``,
-    `Subtotal: ${money(totals.subtotal)}`
-  ];
-
-  // Ambali orders have fixed delivery + packing charges.
-  if (totals.hasAmbali) {
-    parts.push(
-      `Delivery: ${money(totals.delivery)}`
-    );
-
-    parts.push(
-      `Packing: ${money(totals.packing)}`
-    );
-  }
-
-  parts.push(
-    `Total: ${money(totals.grandTotal)}`
-  );
-
-  parts.push(``);
-
-  // Only verified payment should reach this function.
-  parts.push(
+    `Subtotal: ${money(totals.subtotal)}`,
+    `Delivery: ${totals.delivery === 0 ? "FREE" : money(totals.delivery)}`,
+    `Packing: ${money(totals.packing)}`,
+    `Total: ${money(totals.grandTotal)}`,
+    ``,
     `PAYMENT: ${
       paymentStatus === "paid"
         ? "PAID"
         : "NOT VERIFIED"
-    }`
-  );
-
-  parts.push(``);
-
-  parts.push(
-    `Name: ${customer.name}`
-  );
-
-  parts.push(
-    `Phone: ${customer.phone}`
-  );
-
-  parts.push(
-    `Fulfilment: Delivery`
-  );
-
-  parts.push(
+    }`,
+    ``,
+    `Name: ${customer.name}`,
+    `Phone: ${customer.phone}`,
+    `Fulfilment: Delivery`,
     `Delivery Address: ${customer.address}`
-  );
+  ];
 
   if (totals.hasAmbali) {
     parts.push(``);

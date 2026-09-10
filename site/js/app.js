@@ -1166,7 +1166,7 @@ checkoutBtn.addEventListener(
     if (!address) {
 
       checkoutError.textContent =
-        "Please add a delivery address â€” we currently deliver only, no stall pickup.";
+        "Please enter your delivery address to continue.";
 
       checkoutError.style.display =
         "block";

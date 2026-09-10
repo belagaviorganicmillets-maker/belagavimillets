@@ -6,17 +6,15 @@
  *
  * DELIVERY RULE:
  *
- * Ambali subtotal BELOW ₹99
+ * Subtotal BELOW ₹99
  * → Delivery ₹30
  * → Packing ₹10
  *
- * Ambali subtotal ₹99 OR ABOVE
+ * Subtotal ₹99 OR ABOVE
  * → Delivery FREE (₹0)
  * → Packing ₹10
  *
- * Powder-only orders
- * → Delivery ₹0
- * → Packing ₹0
+ * These rules apply to ALL orders, including powder-only orders.
  */
 
 function money(n) {
@@ -47,29 +45,30 @@ function computeTotals(cartItems) {
   );
 
   // ----------------------------------------------------------
-  // DELIVERY RULE
+  // DELIVERY
   //
   // ₹99 OR ABOVE = FREE DELIVERY
   // BELOW ₹99 = ₹30 DELIVERY
+  //
+  // Applies to ALL orders.
   // ----------------------------------------------------------
 
   let delivery = 0;
 
-if (subtotal >= 99) {
-  delivery = 0;
-} else {
-  delivery = CONFIG.ambaliDeliveryCharge;
-}
+  if (subtotal >= 99) {
+    delivery = 0;
+  } else {
+    delivery = CONFIG.ambaliDeliveryCharge;
+  }
 
   // ----------------------------------------------------------
   // PACKING
   //
-  // ₹10 whenever Ambali is present.
+  // ₹10 for EVERY order.
   // ----------------------------------------------------------
 
-  const packing = hasAmbali
-    ? CONFIG.ambaliPackingCharge
-    : 10;
+  const packing =
+    CONFIG.ambaliPackingCharge;
 
   // ----------------------------------------------------------
   // FINAL TOTAL

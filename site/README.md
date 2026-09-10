@@ -136,80 +136,46 @@ payment.
 
 There is no stall-pickup option anywhere in the UI or checkout logic.
 
-## Payment — read this before treating checkout as "done"
+## Payment
 
-**This is the single most important thing to understand about this
-revision.** The request asked for payment to be verified *before* an
-order is sent, and explicitly forbade inventing payment credentials or
-faking a successful payment. Both of those instructions are followed
-literally, which has a real consequence:
+The website uses Razorpay Standard Checkout for online payments.
 
-**Online payment is not actually live.** `js/data/payment-config.js` has
-no real provider/key — `PAYMENT_CONFIG.configured` is `false`. There are
-no credentials to invent, and there's no backend in this project to
-verify a payment signature even if there were a public key (a static
-site cannot safely verify payment server-side on its own — that's not a
-gap I could close by writing more frontend code; it requires a real
-backend/serverless function connected to a real payment-gateway account,
-which only the business owner can set up).
+The payment flow is:
 
-So today, `js/lib/payment.js` takes the **honest fallback path**: it
-does not claim a payment was verified. The customer can still complete
-and send their order (exactly as before), but:
-- the on-screen confirmation says *"Online payment isn't set up yet —
-  please arrange payment (UPI or COD) with us directly on WhatsApp"*,
-  never "Payment successful"
-- the WhatsApp message says `PAYMENT: Not collected online — to arrange
-  with you (UPI/COD)`, never `PAYMENT: PAID`
+1. Customer enters their name, phone number, and delivery address.
+2. The frontend sends the cart items and customer details to `/api/create-order`.
+3. The server validates the products, quantities, prices, delivery charge, and packing charge.
+4. The server creates a Razorpay order using the server-side Razorpay credentials.
+5. Razorpay Checkout opens for the customer to complete payment.
+6. After payment, the frontend sends the Razorpay payment details to `/api/verify-payment`.
+7. The server verifies the Razorpay signature and confirms that the payment is captured.
+8. Only after successful server-side verification is the order treated as paid.
+9. The verified order is then prepared for WhatsApp confirmation.
 
-This keeps the business able to actually take orders today (blocking all
-ordering entirely until a full payment-gateway integration existed would
-leave a small local business with no way to sell anything), while never
-pretending money changed hands when it didn't.
+### Razorpay credentials
 
-### To activate real online payment
+Razorpay credentials must never be placed in frontend JavaScript.
 
-1. The owner needs an account with a payment gateway (e.g. Razorpay,
-   Cashfree) — this requires their own KYC/bank details; not something
-   that can be set up on their behalf.
-2. Set the **public** key in `js/data/payment-config.js`
-   (`provider`, `keyId`, `configured: true`). Never put the **secret**
-   key here or anywhere in frontend code.
-3. Build a small backend or serverless function (Vercel/Netlify
-   functions, or similar) that creates a gateway order and verifies the
-   payment signature server-side, using `PAYMENT_KEY_SECRET` from a real
-   `.env` file (see `.env.example` — copied, never committed).
-4. Replace the body of `initiatePayment()` in `js/lib/payment.js` to call
-   that backend and only report `"paid"` once the backend confirms a
-   verified payment. Everything downstream (WhatsApp message, order
-   confirmation screen) already branches correctly on that status — no
-   other file needs to change.
+The server uses:
 
-This is genuinely a separate small project (a backend + hosting + a real
-merchant account), not something addable inside this static-site repo
-alone — flagging that clearly rather than shipping something that only
-looks like it works.
+- `RAZORPAY_KEY_ID`
+- `RAZORPAY_KEY_SECRET`
 
-## Order ID
+These must be configured as server-side environment variables.
 
-A simple, human-readable order ID (e.g. `AMB-20260907-482`) is generated
-client-side per order (`js/lib/payment.js`, `generateOrderId()`) for
-display and for the WhatsApp message. It is **not guaranteed globally
-unique** — there's no backend/database to check against. Once a real
-backend exists (see Payment above), have it assign the authoritative
-order ID instead.
+The Key Secret must never be committed to Git or exposed to the browser.
 
-## Delivery area
+### Before going live
 
-Belagavi-only delivery is shown near the Ambali ordering area and in the
-checkout address field, driven from one string in `config.js`
-(`deliveryAreaMessage`) — never hardcoded twice.
+The website can be prepared and tested without committing live credentials.
 
-## Known placeholders / things to confirm with the owner
+Once the Razorpay merchant account is activated and Live API credentials are available:
 
-- `whatsappNumber` in `config.js` is the number already used elsewhere on
-  the site (`+91 91642 45475`) — confirm this is still correct.
-- Ambali grain/glass images are placeholders (see "Images" above) —
-  real photos needed.
-- Payment is not live (see "Payment" above) — needs a gateway account +
-  backend before it can be.
+1. Add the Live Razorpay Key ID and Key Secret to the server environment.
+2. Deploy the website/API.
+3. Confirm that the Razorpay Live Key ID is being returned by `/api/create-order`.
+4. Complete a real low-value payment test.
+5. Confirm that `/api/verify-payment` reports the payment as captured.
+6. Confirm that the WhatsApp order is sent only after successful verification.
+
+The production website must never use fake or invented payment credentials.
