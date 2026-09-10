@@ -314,15 +314,13 @@ const keySecret = process.env.Razorpay_key_secret;
     //
     // Never return the secret key.
     // --------------------------------------------------------
-    return res.status(200).json({
-      success: true,
-
-      order: {
-        id: data.id,
-        amount: data.amount,
-        currency: data.currency
-      }
-    });
+  return res.status(200).json({
+  success: true,
+  keyId,
+  orderId: data.id,
+  amount: data.amount,
+  currency: data.currency
+});
 
   } catch (error) {
 
