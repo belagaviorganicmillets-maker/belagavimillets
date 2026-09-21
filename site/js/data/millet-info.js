@@ -2,121 +2,96 @@
  * "Know Your Five Millets" — educational content, separate from the
  * commercial product data (products.js / ambali.js) since this section
  * exists to inform, not to sell a specific pack size or price.
- *
- * Wording is deliberately conservative — no disease-cure or
- * disease-treatment claims. Source noted per item for maintainability;
- * update the wording (not just the source link) if a claim changes.
  */
 
 const MILLET_INFO = [
   {
     id: "foxtail",
     name: "Foxtail Millet",
-    kn: "Navane",
+    kn: "ನವಣೆ",
     theme: "gold",
 
     // Grain image used in "Know Your Millets"
     grainImage: "assets/ambali/foxtail-grains.jpg",
 
-    intro: "One of India's oldest cultivated grains, with a mild, slightly nutty flavour.",
+    intro:
+      "Nutritional Specifications: High in crude fiber, complex carbohydrates, thiamine (Vitamin B1), and low-glycemic properties.",
 
     points: [
-      "Good source of plant protein",
-      "Contains dietary fibre",
-      "Naturally gluten free",
-      "Low glycemic index"
+      "Health Benefits: Regulates blood glucose spikes, enhances neural health, and optimizes cholesterol breakdown.",
+      "Target Patient Groups: Highly recommended for Type-2 diabetes patients, individuals looking to manage high cholesterol (hyperlipidemia), and those needing metabolic regulation."
     ]
-
-    // FAO: ~11.7g protein, ~6g fibre/100g
-    // https://www.jewelfarmer.com/blogs/superfood-knowledge-hub/foxtail-millet-nutrition-facts-calories-protein-fiber
   },
 
   {
     id: "barnyard",
     name: "Barnyard Millet",
-    kn: "Oodalu",
+    kn: "ಊದಲು",
     theme: "teal",
 
     // Grain image used in "Know Your Millets"
     grainImage: "assets/ambali/barnyard-grains.jpg",
 
-    intro: "A light, easy-to-digest grain often the first millet introduced to children or elders.",
+    intro:
+      "Nutritional Specifications: The lowest in calories and carbohydrates among all millets, with incredibly high digestible protein and soluble fiber content.",
 
     points: [
-      "Low glycemic index",
-      "Contains dietary minerals",
-      "Naturally gluten free",
-      "High in dietary fibre"
+      "Health Benefits: Extremely easy to digest, prevents rapid glucose release, and assists in maintaining a caloric deficit.",
+      "Target Patient Groups: Best suited for sedentary patients managing obesity, individuals undergoing weight management treatments, and diabetic patients looking for light meal alternatives."
     ]
-
-    // GI ~41.7-50 (dehulled):
-    // Ugare et al., J Food Sci Technol, 2011
-    // https://pmc.ncbi.nlm.nih.gov/articles/PMC3907638/
   },
 
   {
     id: "little",
     name: "Little Millet",
-    kn: "Saame",
+    kn: "ಸಾಮೆ",
     theme: "mauve",
 
     // Grain image used in "Know Your Millets"
     grainImage: "assets/ambali/little-grains.jpg",
 
-    intro: "A small-grained millet valued for its iron content and quick cooking time.",
+    intro:
+      "Nutritional Specifications: Packed with phytoestrogens, dietary fiber, magnesium, and essential fatty acids.",
 
     points: [
-      "Contains iron",
-      "Source of antioxidants",
-      "Naturally gluten free",
-      "Supports a balanced diet"
+      "Health Benefits: Acts as a natural regulator of hormonal pathways and provides sustained energy without causing gastrointestinal heaviness.",
+      "Target Patient Groups: Frequently recommended for women dealing with PCOS/PCOD or hormonal imbalances, and individuals suffering from irritable bowel syndrome (IBS) or sluggish digestion."
     ]
-
-    // Iron among the higher of minor millets studied:
-    // https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10532853/
   },
 
   {
     id: "kodo",
     name: "Kodo Millet",
-    kn: "Harka",
+    kn: "ಹಾರಕ",
     theme: "olive",
 
     // Grain image used in "Know Your Millets"
     grainImage: "assets/ambali/kodo-grains.jpg",
 
-    intro: "A fibre-rich millet with a mild, neutral flavour that cooks similarly to rice.",
+    intro:
+      "Nutritional Specifications: Contains high amounts of lecithin, dietary fiber, and specific polyphenols that act as strong antioxidants.",
 
     points: [
-      "High in dietary fibre",
-      "Good source of plant protein",
-      "Naturally gluten free",
-      "Supports digestive wellness"
+      "Health Benefits: Strengthens the nervous system, accelerates wound healing, and exhibits excellent anti-diabetic and anti-obesity properties.",
+      "Target Patient Groups: Useful for patients recovering from post-surgical wounds or chronic injuries, individuals with nervous system weaknesses, and those with metabolic syndrome."
     ]
-
-    // 9.0g dietary fibre/100g:
-    // ICMR Indian Food Composition Tables, 2017
   },
 
   {
     id: "browntop",
     name: "Browntop Millet",
-    kn: "Korle",
+    kn: "ಕೊರಲೆ",
     theme: "terracotta",
 
     // Grain image used in "Know Your Millets"
     grainImage: "assets/ambali/browntop-grains.jpg",
 
-    intro: "A rarer, nutrient-dense millet grown mainly on marginal dryland farms.",
+    intro:
+      "Nutritional Specifications: Rich in dietary fiber, complex carbohydrates, plant-based protein, minerals, and antioxidant compounds. It is also a good source of micronutrients such as magnesium, phosphorus and iron.",
 
     points: [
-      "High in dietary fibre",
-      "Good source of plant protein",
-      "Contains dietary minerals",
-      "Naturally gluten free"
+      "Health Benefits: Supports healthy digestion and regular bowel movements.",
+      "Target Patient Groups: People looking for high-fiber foods, individuals following weight-conscious diets, and those wanting to replace refined cereals with a more nutrient-dense whole grain."
     ]
-
-    // Highest protein/fibre among minor millets studied:
-    // https://www.frontiersin.org/journals/sustainable-food-systems/articles/10.3389/fsufs.2022.974126/full
   }
 ];
