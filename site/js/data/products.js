@@ -23,13 +23,10 @@ const PRODUCTS = [
   {
     id: "foxtail-millet-powder",
     name: "Foxtail Millet Powder",
-    category: "Millet Powder",
+    category: "ನವಣೆ",
     kn: "Navane",
     theme: "gold",
     image: "assets/products/foxtail-millet-powder.png",
-    description: "",
-    benefits: [
-    ],
     packSize: "100 g",
     price: 69,
     shelfLife: "3 months",
