@@ -27,15 +27,11 @@ const PRODUCTS = [
     kn: "Navane",
     theme: "gold",
     image: "assets/products/foxtail-millet-powder.png",
-    description: "Stone-ground foxtail millet, milled the traditional way for everyday cooking.",
+    description: "",
     benefits: [
-      "Rich in fibre",
-      "Good source of plant protein",
-      "Supports energy and stamina",
-      "Gluten free"
     ],
-    packSize: "50 g",
-    price: 29,
+    packSize: "100 g",
+    price: 69,
     shelfLife: "3 months",
     availability: "coming-soon"
     // General millet fibre/protein figures: Smart Food (ICRISAT-affiliated) —
